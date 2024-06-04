@@ -166,8 +166,8 @@ void System::processBlock(juce::dsp::AudioBlock<float>& audioBlock) {
         b = channelBStates[channel];
         x = channelXStates[channel];
 
-       solver.analyzePattern(A);
-       solver.factorize(A);
+       //solver.analyzePattern(A);
+       //solver.factorize(A);
 
         //core of the algorithm
         for (auto i = 0; i < audioBlock.getNumSamples(); i++) {
