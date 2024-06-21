@@ -30,6 +30,7 @@ void System::init(const std::string& filename) {
 
     knobPositions = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
     setupSystem();
+    setProcessBlockStrategy();
 }
 
 //================================================================================================
@@ -154,8 +155,16 @@ void System::solveSystem() {
 }
 
 
+void System::setProcessBlockStrategy(){
+    if (nonlinearComponents.empty()) {
+        processBlockFunction = std::bind(&System::processBlockLinear, this, std::placeholders::_1);
+    }
+    else {
+        processBlockFunction = std::bind(&System::processBlockNonLinear, this, std::placeholders::_1);
+    }
+}
 
-void System::processBlock(juce::dsp::AudioBlock<float>& audioBlock) {
+void System::processBlockLinear(juce::dsp::AudioBlock<float>& audioBlock) {
 
     const auto mix = mixPercentage / 100.0f;
 
@@ -165,9 +174,6 @@ void System::processBlock(juce::dsp::AudioBlock<float>& audioBlock) {
         // Use saved states for this channel
         b = channelBStates[channel];
         x = channelXStates[channel];
-
-       //solver.analyzePattern(A);
-       //solver.factorize(A);
 
         //core of the algorithm
         for (auto i = 0; i < audioBlock.getNumSamples(); i++) {
@@ -190,6 +196,40 @@ void System::processBlock(juce::dsp::AudioBlock<float>& audioBlock) {
         channelBStates[channel] = b;
         channelXStates[channel] = x;
     }
+}
+
+
+void System::processBlockNonlinear(juce::dsp::AudioBlock<float>& audioBlock) {
+	const auto mix = mixPercentage / 100.0f;
+
+	for (auto channel = 0; channel < audioBlock.getNumChannels(); ++channel) {
+		auto* channelSamples = audioBlock.getChannelPointer(channel);
+
+		// Use saved states for this channel
+		b = channelBStates[channel];
+		x = channelXStates[channel];
+
+		//core of the algorithm
+		for (auto i = 0; i < audioBlock.getNumSamples(); i++) {
+			const auto inputSample = channelSamples[i];
+			const auto inputCircuitSample = inputSample * std::pow(10.0f, inputGain / 20.0f);
+
+			for (const auto& comp : externalVoltageSources) comp->updateVoltage(inputCircuitSample);
+			for (const auto& comp : dynamicComponents) comp->stamp_b(*this);
+
+			x = solver.solve(b);
+
+			//test with the first voltage probe
+			float outputCircuitSample = voltageProbes[0]->getVoltage();
+
+			float outputSample = outputCircuitSample * std::pow(10.0f, outputGain / 20.0f);
+			channelSamples[i] = outputSample * mix + (1 - mix) * inputSample;
+		}
+
+		// Save the updated states for this channel
+		channelBStates[channel] = b;
+		channelXStates[channel] = x;
+	}
 }
 
 //====================================================================================================
@@ -242,6 +282,10 @@ void System::setKnob5(float knob5) {
 
 void System::setKnob6(float knob6) {
     this->knobPositions[5] = knob6;
+}
+
+void System::setNrIterations(unsigned nrIterations) {
+	this->nrIterations = nrIterations;
 }
 
 void System::prepareChannels(int numChannels) {
