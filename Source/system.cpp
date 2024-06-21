@@ -30,6 +30,7 @@ void System::init(const std::string& filename) {
 
     knobPositions = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
     setupSystem();
+    setProcessBlockStrategy();
 }
 
 //================================================================================================
@@ -122,21 +123,41 @@ void System::fillStaticSystem() {
         comp->stamp_b(*this);
     }
     A_static = A;
+    b_static = b;
 }
 
 void System::fillBaseSystem() {
     A = A_static;//make a copy of the static base matrix
+    b = b_static;
+
     for (const auto& comp : dynamicComponents) {
         comp->stamp_A(*this);
+        comp->stamp_b(*this);
     }
-    A_base = A;//make a copy of the base matrix
+    A_dyn = A;//make a copy of the base matrix
+    b_dyn = b;
 }
 
 void System::fillVariableSystem() {
-    A = A_base;
+    A = A_dyn;
+    b = b_dyn;
+
     for (const auto& comp : variableComponents) {
         comp->stamp_A(*this); //normally the stamp_A function should include something to update the component value
+        comp->stamp_b(*this);
     }
+    A_var = A; //make a copy of the variable matrix
+    b_var = b;
+}
+
+void System::fillNonlinearSystem() {
+	A = A_var;
+    b = b_var;
+
+	for (const auto& comp : nonlinearComponents) {
+		comp->stamp_A(*this);
+    comp->stamp_b(*this);
+	}
 }
 
 void System::setSparseMatrixEntry(unsigned row, unsigned col) {
@@ -154,8 +175,16 @@ void System::solveSystem() {
 }
 
 
+void System::setProcessBlockStrategy(){
+    if (nonlinearComponents.empty()) {
+        processBlock = std::bind(&System::processBlockLinear, this, std::placeholders::_1);
+    }
+    else {
+        processBlock = std::bind(&System::processBlockNonlinear, this, std::placeholders::_1);
+    }
+}
 
-void System::processBlock(juce::dsp::AudioBlock<float>& audioBlock) {
+void System::processBlockLinear(juce::dsp::AudioBlock<float>& audioBlock) {
 
     const auto mix = mixPercentage / 100.0f;
 
@@ -166,12 +195,9 @@ void System::processBlock(juce::dsp::AudioBlock<float>& audioBlock) {
         b = channelBStates[channel];
         x = channelXStates[channel];
 
-       //solver.analyzePattern(A);
-       //solver.factorize(A);
-
         //core of the algorithm
-        for (auto i = 0; i < audioBlock.getNumSamples(); i++) {
-            const auto inputSample = channelSamples[i];
+        for (auto n = 0; n < audioBlock.getNumSamples(); n++) {
+            const auto inputSample = channelSamples[n];
             const auto inputCircuitSample = inputSample * std::pow(10.0f, inputGain / 20.0f);
 
             for (const auto& comp : externalVoltageSources) comp->updateVoltage(inputCircuitSample);
@@ -183,13 +209,64 @@ void System::processBlock(juce::dsp::AudioBlock<float>& audioBlock) {
             float outputCircuitSample = voltageProbes[0]->getVoltage();
 
             float outputSample = outputCircuitSample * std::pow(10.0f, outputGain / 20.0f);
-            channelSamples[i] = outputSample * mix + (1 - mix) * inputSample;
+            channelSamples[n] = outputSample * mix + (1 - mix) * inputSample;
         }
 
         // Save the updated states for this channel
         channelBStates[channel] = b;
         channelXStates[channel] = x;
     }
+}
+
+
+void System::processBlockNonlinear(juce::dsp::AudioBlock<float>& audioBlock) {
+	const auto mix = mixPercentage / 100.0f;
+
+	for (auto channel = 0; channel < audioBlock.getNumChannels(); ++channel) {
+		auto* channelSamples = audioBlock.getChannelPointer(channel);
+
+		b = channelBStates[channel];
+		x = channelXStates[channel];
+
+		for (auto n = 0; n < audioBlock.getNumSamples(); n++) {
+			const auto inputSample = channelSamples[n];
+			const auto inputCircuitSample = inputSample * std::pow(10.0f, inputGain / 20.0f);
+
+			for (const auto& comp : externalVoltageSources) comp->updateVoltage(inputCircuitSample);
+			for (const auto& comp : dynamicComponents) comp->stamp_b(*this);
+
+            for (auto i = 0; i < nrIterations; i++) { // Newton-Raphson iterations
+
+                fillNonlinearSystem();
+
+
+                x_old = x;
+
+
+                if (i == 0) {
+					solver.analyzePattern(A);
+				}
+                //definitely have to improve this
+
+                solver.factorize(A);
+                x = solver.solve(b);
+
+                if ((x - x_old).norm() < 1e-6) {
+					break;
+				}
+            }
+
+			//test with the first voltage probe
+			float outputCircuitSample = voltageProbes[0]->getVoltage();
+
+			float outputSample = outputCircuitSample * std::pow(10.0f, outputGain / 20.0f);
+			channelSamples[n] = outputSample * mix + (1 - mix) * inputSample;
+		}
+
+		// Save the updated states for this channel
+		channelBStates[channel] = b;
+		channelXStates[channel] = x;
+	}
 }
 
 //====================================================================================================
@@ -242,6 +319,10 @@ void System::setKnob5(float knob5) {
 
 void System::setKnob6(float knob6) {
     this->knobPositions[5] = knob6;
+}
+
+void System::setNrIterations(unsigned nrIterations) {
+	this->nrIterations = nrIterations;
 }
 
 void System::prepareChannels(int numChannels) {
@@ -312,7 +393,7 @@ std::shared_ptr<Component> System::createComponent(const std::string& netlistLin
             throw std::runtime_error("Incorrect number of tokens for potentiometer: " + netlistLine);
         }
     case 'V':
-        if (symbol[1] == 'i') {
+        if (symbol[1] == 'n') {
             return std::make_shared<ExternalVoltageSource>(start_node, end_node, value, idx);
         }
         else if (symbol[1] == 'o') {

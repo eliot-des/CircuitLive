@@ -37,9 +37,10 @@ public:
     std::vector<std::shared_ptr<ExternalVoltageSource>> externalVoltageSources;
     std::vector<std::shared_ptr<VoltageProbe>> voltageProbes;
 
-    Eigen::SparseMatrix<double> A, A_static, A_base;
+    Eigen::SparseMatrix<double> A, A_static, A_dyn, A_var;
+    Eigen::VectorXd x, x_old, b, b_static, b_dyn, b_var;
+
     Eigen::SparseLU<Eigen::SparseMatrix<double>> solver;
-    Eigen::VectorXd x, b;
 
     std::vector<Eigen::VectorXd> channelBStates;
     std::vector<Eigen::VectorXd> channelXStates;
@@ -56,10 +57,8 @@ public:
     //knobs positions (size of 6 for now, but can be extended)
     std::vector<float> knobPositions;
 
-    
-
     bool isInitialized = false;
-
+    std::function<void(juce::dsp::AudioBlock<float>&)> processBlock; // Function pointer to the appropriate processBlock method
 
 
     System() = default;
@@ -67,9 +66,11 @@ public:
 
     //This three methods are used to initialize the system
     void init(const std::string& filename);
+
     void fillStaticSystem();
     void fillBaseSystem();
     void fillVariableSystem();
+    void fillNonlinearSystem();
 
     //used to remove all the components from the system, reset A, x and b, and reset the solver (to avoid memory leaks)
     void reset();
@@ -95,8 +96,11 @@ public:
     void prepareChannels(int numChannels);
     void setNrIterations(unsigned nrIterations);
 
-    void processBlock(juce::dsp::AudioBlock<float>& block);
 
+    // Processing methods
+    void setProcessBlockStrategy();
+    void processBlockLinear(juce::dsp::AudioBlock<float>& audioBlock);
+    void processBlockNonlinear(juce::dsp::AudioBlock<float>& audioBlock);
 
     // Generic function to get components of a specific type inside allComponents, e.g. getComponents<Resistance>()
     template <typename T>

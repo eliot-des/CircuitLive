@@ -27,6 +27,10 @@
         <FILE id="uUUzqk" name="eigenWrapper.cpp" compile="1" resource="0"
               file="Source/eigenWrapper.cpp"/>
         <FILE id="rFjs68" name="eigenWrapper.h" compile="0" resource="0" file="Source/eigenWrapper.h"/>
+        <FILE id="LYqOkc" name="processStrategy.cpp" compile="1" resource="0"
+              file="Source/processStrategy.cpp"/>
+        <FILE id="GsDNdB" name="processStrategy.h" compile="0" resource="0"
+              file="Source/processStrategy.h"/>
         <FILE id="AOFOUy" name="system.cpp" compile="1" resource="0" file="Source/system.cpp"/>
         <FILE id="DseRtF" name="system.h" compile="0" resource="0" file="Source/system.h"/>
         <FILE id="RJu7VD" name="taperFunctions.h" compile="0" resource="0"
