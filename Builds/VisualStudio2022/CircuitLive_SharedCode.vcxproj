@@ -145,6 +145,7 @@
     <ClCompile Include="..\..\Source\simulationParameters.cpp"/>
     <ClCompile Include="..\..\Source\component.cpp"/>
     <ClCompile Include="..\..\Source\eigenWrapper.cpp"/>
+    <ClCompile Include="..\..\Source\processStrategy.cpp"/>
     <ClCompile Include="..\..\Source\system.cpp"/>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp"/>
     <ClCompile Include="..\..\Source\PluginEditor.cpp"/>
@@ -2559,6 +2560,7 @@
     <ClInclude Include="..\..\Source\simulationParameters.h"/>
     <ClInclude Include="..\..\Source\component.h"/>
     <ClInclude Include="..\..\Source\eigenWrapper.h"/>
+    <ClInclude Include="..\..\Source\processStrategy.h"/>
     <ClInclude Include="..\..\Source\system.h"/>
     <ClInclude Include="..\..\Source\taperFunctions.h"/>
     <ClInclude Include="..\..\Source\PluginProcessor.h"/>

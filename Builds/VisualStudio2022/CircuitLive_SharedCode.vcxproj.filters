@@ -649,6 +649,9 @@
     <ClCompile Include="..\..\Source\eigenWrapper.cpp">
       <Filter>CircuitLive\Source\Processing</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\processStrategy.cpp">
+      <Filter>CircuitLive\Source\Processing</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\system.cpp">
       <Filter>CircuitLive\Source\Processing</Filter>
     </ClCompile>
@@ -3250,6 +3253,9 @@
       <Filter>CircuitLive\Source\Processing</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\eigenWrapper.h">
+      <Filter>CircuitLive\Source\Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\processStrategy.h">
       <Filter>CircuitLive\Source\Processing</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\system.h">
