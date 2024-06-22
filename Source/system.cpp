@@ -281,7 +281,7 @@ void System::setSampleRate(double sampleRate) {
     }
 }
 
-void System::setNrIterations(unsigned int nrIterations) {
+void System::setNrIterations(unsigned nrIterations) {
     this->nrIterations = std::pow(2,(nrIterations-1));
 }
 
