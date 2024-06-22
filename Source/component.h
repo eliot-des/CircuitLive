@@ -253,3 +253,31 @@ private:
 
 
 
+
+
+
+
+
+
+
+class Transformer : public Component {
+public:
+    unsigned index;
+    unsigned node_3, node_4;
+    double ratio;
+
+    Transformer(unsigned node_1, unsigned node_2, unsigned node_3, unsigned node_4, double ratio, unsigned index);
+
+    virtual bool is_static()    const override { return true; }
+    virtual bool is_variable()  const override { return false; }
+    virtual bool is_dynamic()   const override { return false; }
+    virtual bool is_nonlinear() const override { return false; }
+
+    virtual void register_component(System& system) const override;
+    virtual void setup(System& system) override;
+    virtual void stamp_A(System& system) override;
+    virtual void stamp_b(System& system) override;
+private:
+    SparseMatrixEntry A_index_1, A_index_2, A_index_3, A_index_4, A_1_index, A_2_index, A_3_index, A_4_index;
+};
+

@@ -359,3 +359,22 @@ void Diode::stamp_b(System& system) {
     b_start -= Ieq;
     b_end += Ieq;
 }
+
+//=================================================================================================
+//=================================================================================================
+
+Transformer::Transformer(unsigned node_1, unsigned node_2, unsigned node_3, unsigned node_4, double ratio, unsigned index)
+	: Component(node_1, node_2), node_3(node_3), node_4(node_4), ratio(ratio), index(index) {}
+
+void Transformer::register_component(System& system) const {
+    unsigned n = system.n;
+
+    system.setSparseMatrixEntry(n + index, node_1);
+    system.setSparseMatrixEntry(n + index, node_2);
+    system.setSparseMatrixEntry(n + index, node_3);
+    system.setSparseMatrixEntry(n + index, node_4);
+    system.setSparseMatrixEntry(node_1, n + index);
+    system.setSparseMatrixEntry(node_2, n + index);
+    system.setSparseMatrixEntry(node_3, n + index);
+    system.setSparseMatrixEntry(node_4, n + index);
+}
