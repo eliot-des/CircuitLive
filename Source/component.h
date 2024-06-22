@@ -269,7 +269,7 @@ public:
     virtual void register_component(System& system) const override;
     virtual void setup(System& system) override;
     virtual void stamp_A(System& system) override;
-    virtual void stamp_b(System& system) override;
+    virtual void stamp_b(System& system) override {};
 private:
     SparseMatrixEntry A_index_1, A_index_2, A_index_3, A_index_4, A_1_index, A_2_index, A_3_index, A_4_index;
 };
@@ -291,7 +291,7 @@ public:
     virtual void register_component(System& system) const override;
     virtual void setup(System& system) override;
     virtual void stamp_A(System& system) override;
-    virtual void stamp_b(System& system) override;
+    virtual void stamp_b(System& system) override {};
 private:
     SparseMatrixEntry A_index1_1, A_index1_2, A_index2_3, A_index2_4, A_1_index1, A_2_index1, A_3_index2, A_4_index2, A_index1_index2, A_index2_index1;
 };
