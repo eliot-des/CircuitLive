@@ -59,7 +59,7 @@ public:
 
 
     bool isInitialized = false;
-
+    std::function<void(juce::dsp::AudioBlock<float>&)> processBlockFunction; // Function pointer to the appropriate processBlock method
 
 
     System() = default;
@@ -101,6 +101,10 @@ public:
     void processBlockLinear(juce::dsp::AudioBlock<float>& block);
     void processBlockNonlinear(juce::dsp::AudioBlock<float>& block);
 
+    // Processing methods
+    void setProcessBlockStrategy();
+    void processBlockLinear(juce::dsp::AudioBlock<float>& audioBlock);
+    void processBlockNonlinear(juce::dsp::AudioBlock<float>& audioBlock);
 
     // Generic function to get components of a specific type inside allComponents, e.g. getComponents<Resistance>()
     template <typename T>
