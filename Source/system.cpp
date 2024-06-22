@@ -394,6 +394,11 @@ std::shared_ptr<Component> System::createComponent(const std::string& netlistLin
         return std::make_shared<IdealOPA>(start_node, end_node, value, idx);
     case 'D':
         return std::make_shared<Diode>(start_node, end_node);
+    case 'T':
+        unsigned node_3 = std::stoi(tokens[3]);
+        unsigned node_4 = std::stoi(tokens[4]);
+        double ratio = std::stod(tokens[5]);
+        return std::make_shared<Transformer>(start_node, end_node, node_3, node_4, ratio, idx);
     case '#':
         return nullptr;
     default:
