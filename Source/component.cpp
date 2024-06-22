@@ -364,7 +364,8 @@ void Diode::stamp_b(System& system) {
 //=================================================================================================
 
 Transformer::Transformer(unsigned node_1, unsigned node_2, unsigned node_3, unsigned node_4, double ratio, unsigned index)
-	: Component(node_1, node_2), node_3(node_3), node_4(node_4), ratio(ratio), index(index) {}
+	: Component(node_1, node_2), node_1(node_1), node_2(node_2), node_3(node_3), node_4(node_4), ratio(ratio), index(index) {}
+//not optimal to have variables node_1 and node_2 since this is already defined in the base class, but this is easier to read and understand for a quadrupole
 
 void Transformer::register_component(System& system) const {
     unsigned n = system.n;
@@ -377,4 +378,29 @@ void Transformer::register_component(System& system) const {
     system.setSparseMatrixEntry(node_2, n + index);
     system.setSparseMatrixEntry(node_3, n + index);
     system.setSparseMatrixEntry(node_4, n + index);
+}
+
+void Transformer::setup(System& system) {
+	unsigned n = system.n;
+
+	A_index_1.init(system.A, n + index, node_1);
+	A_index_2.init(system.A, n + index, node_2);
+	A_index_3.init(system.A, n + index, node_3);
+	A_index_4.init(system.A, n + index, node_4);
+	A_1_index.init(system.A, node_1, n + index);
+	A_2_index.init(system.A, node_2, n + index);
+	A_3_index.init(system.A, node_3, n + index);
+	A_4_index.init(system.A, node_4, n + index);
+}
+
+void Transformer::stamp_A(System& system) {
+    A_1_index = 1;
+    A_2_index = -1;
+    A_3_index = ratio;
+    A_4_index = -ratio;
+
+	A_index_1 = 1;
+	A_index_2 = -1;
+	A_index_3 = -ratio;
+	A_index_4 = ratio;
 }

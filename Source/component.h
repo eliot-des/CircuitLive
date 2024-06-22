@@ -263,7 +263,7 @@ private:
 class Transformer : public Component {
 public:
     unsigned index;
-    unsigned node_3, node_4;
+    unsigned node_1, node_2, node_3, node_4;
     double ratio;
 
     Transformer(unsigned node_1, unsigned node_2, unsigned node_3, unsigned node_4, double ratio, unsigned index);
