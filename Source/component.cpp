@@ -404,3 +404,56 @@ void Transformer::stamp_A(System& system) {
 	A_index_3 = -ratio;
 	A_index_4 = ratio;
 }
+
+//=================================================================================================
+//=================================================================================================
+
+Gyrator::Gyrator(unsigned node_1, unsigned node_2, unsigned node_3, unsigned node_4, double resistance, unsigned index)
+	: Component(node_1, node_2), node_1(node_1), node_2(node_2), node_3(node_3), node_4(node_4), resistance(resistance), index1(index), index2(index+1) {}
+
+void Gyrator::register_component(System& system) const {
+	unsigned n = system.n;
+
+	system.setSparseMatrixEntry(n + index1, node_1);
+	system.setSparseMatrixEntry(n + index1, node_2);
+	system.setSparseMatrixEntry(n + index2, node_3);
+	system.setSparseMatrixEntry(n + index2, node_4);
+	system.setSparseMatrixEntry(node_1, n + index1);
+	system.setSparseMatrixEntry(node_2, n + index1);
+	system.setSparseMatrixEntry(node_3, n + index2);
+	system.setSparseMatrixEntry(node_4, n + index2);
+
+    system.setSparseMatrixEntry(n + index1, n + index2);
+    system.setSparseMatrixEntry(n + index2, n + index1);
+}
+
+void Gyrator::setup(System& system) {
+	unsigned n = system.n;
+
+	A_index1_1.init(system.A, n + index1, node_1);
+	A_index1_2.init(system.A, n + index1, node_2);
+	A_index2_3.init(system.A, n + index2, node_3);
+	A_index2_4.init(system.A, n + index2, node_4);
+	A_1_index1.init(system.A, node_1, n + index1);
+	A_2_index1.init(system.A, node_2, n + index1);
+	A_3_index2.init(system.A, node_3, n + index2);
+	A_4_index2.init(system.A, node_4, n + index2);
+
+	A_index1_index2.init(system.A, n + index1, n + index2);
+	A_index2_index1.init(system.A, n + index2, n + index1);
+}
+
+void Gyrator::stamp_A(System& system) {
+	A_1_index1 = 1;
+	A_2_index1 = -1;
+	A_3_index2 = 1;
+	A_4_index2 = -1;
+
+	A_index1_1 = 1;
+	A_index1_2 = -1;
+	A_index2_3 = 1;
+	A_index2_4 = -1;
+
+	A_index1_index2 = resistance;
+	A_index2_index1 = -resistance;
+}

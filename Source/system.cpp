@@ -399,6 +399,11 @@ std::shared_ptr<Component> System::createComponent(const std::string& netlistLin
         unsigned node_4 = std::stoi(tokens[4]);
         double ratio = std::stod(tokens[5]);
         return std::make_shared<Transformer>(start_node, end_node, node_3, node_4, ratio, idx);
+    case 'G':
+		unsigned node_3 = std::stoi(tokens[3]);
+		unsigned node_4 = std::stoi(tokens[4]);
+		double resistance = std::stod(tokens[5]);
+		return std::make_shared<Gyrator>(start_node, end_node, node_3, node_4, resistance, idx);
     case '#':
         return nullptr;
     default:
