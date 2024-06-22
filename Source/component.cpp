@@ -359,3 +359,10 @@ void Diode::stamp_b(System& system) {
     b_start -= Ieq;
     b_end += Ieq;
 }
+
+//=================================================================================================
+//=================================================================================================
+
+Transformer::Transformer(unsigned node_1, unsigned node_2, unsigned node_3, unsigned node_4, double ratio, unsigned index)
+	: Component(node_1, node_2), node_3(node_3), node_4(node_4), ratio(ratio), index(index) {}
+
