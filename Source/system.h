@@ -61,7 +61,6 @@ public:
     bool isInitialized = false;
 
 
-
     System() = default;
     explicit System(const std::string& filename);
 
@@ -96,11 +95,10 @@ public:
     void setNrIterations(unsigned nrIterations);
 
 
-    void setProcessStrategy(); 
+    void setProcessBlockStrategy(); 
     std::function<void(juce::dsp::AudioBlock<float>&)> processBlock; // Function pointer to the appropriate processBlock method
-    void processBlockLinear(juce::dsp::AudioBlock<float>& block);
-    void processBlockNonlinear(juce::dsp::AudioBlock<float>& block);
-
+    void processBlockLinear(juce::dsp::AudioBlock<float>& audioblock);
+    void processBlockNonlinear(juce::dsp::AudioBlock<float>& audioblock);
 
     // Generic function to get components of a specific type inside allComponents, e.g. getComponents<Resistance>()
     template <typename T>

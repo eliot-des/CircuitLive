@@ -30,7 +30,7 @@ void System::init(const std::string& filename) {
 
     knobPositions = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
     setupSystem();
-    setProcessStrategy();
+    setProcessBlockStrategy();
 }
 
 //================================================================================================
@@ -157,8 +157,7 @@ void System::solveSystem() {
 }
 
 
-
-void System::setProcessStrategy() {
+void System::setProcessBlockStrategy(){
     if (nonlinearComponents.empty()) {
         processBlock = std::bind(&System::processBlockLinear, this, std::placeholders::_1);
     }
@@ -166,6 +165,7 @@ void System::setProcessStrategy() {
         processBlock = std::bind(&System::processBlockNonlinear, this, std::placeholders::_1);
     }
 }
+
 
 void System::processBlockLinear(juce::dsp::AudioBlock<float>& audioBlock) {
 
@@ -245,9 +245,9 @@ void System::processBlockNonlinear(juce::dsp::AudioBlock<float>& audioBlock) {
             //test with the first voltage probe
             float outputCircuitSample = voltageProbes[0]->getVoltage();
 
-            float outputSample = outputCircuitSample * std::pow(10.0f, outputGain / 20.0f);
-            channelSamples[i] = outputSample * mix + (1 - mix) * inputSample;
-        }
+			float outputSample = outputCircuitSample * std::pow(10.0f, outputGain / 20.0f);
+			channelSamples[i] = outputSample * mix + (1 - mix) * inputSample;
+		}
 
         // Save the updated states for this channel
         channelBStates[channel] = b;
@@ -307,6 +307,7 @@ void System::setKnob5(float knob5) {
 void System::setKnob6(float knob6) {
     this->knobPositions[5] = knob6;
 }
+
 
 void System::prepareChannels(int numChannels) {
     channelBStates.resize(numChannels, b);
