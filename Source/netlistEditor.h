@@ -11,7 +11,8 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 
-class NetlistEditor : public juce::Component, public juce::FilenameComponentListener
+class NetlistEditor : public juce::Component, 
+                      public juce::FilenameComponentListener
 {
 public:
     NetlistEditor(CircuitLiveAudioProcessor& processor);
@@ -21,8 +22,12 @@ public:
     void resized() override;
 
     void filenameComponentChanged(juce::FilenameComponent* fileComponentThatHasChanged) override;
-    void readFile(const juce::File& fileToRead);
     void updateButtonClicked();
+
+
+    void displayNetlistFilePath(const juce::File& fileToDisplay);
+    void displayFileContent(const juce::File& fileToDisplay);
+    void readFile(const juce::File& fileToRead);
 
 private:
     CircuitLiveAudioProcessor& audioProcessor;

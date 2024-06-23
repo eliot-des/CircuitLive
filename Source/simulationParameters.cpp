@@ -33,7 +33,7 @@ SimulationParameters::SimulationParameters(juce::AudioProcessorValueTreeState& v
     nrIterationsBox.addItem("4", 3);
     nrIterationsBox.addItem("8", 4);
     nrIterationsBox.addItem("16", 5);
-    nrIterationsBox.setSelectedId(1);
+    nrIterationsBox.setSelectedId(3);
 
     addAndMakeVisible(nrIterationsLabel);
     nrIterationsLabel.attachToComponent(&nrIterationsBox, true);

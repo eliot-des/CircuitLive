@@ -217,7 +217,6 @@ void System::processBlockNonlinear(juce::dsp::AudioBlock<float>& audioBlock) {
             A = A_var;
             b = b_static;
 
-
             for (const auto& comp : externalVoltageSources) comp->updateVoltage(inputCircuitSample);
             for (const auto& comp : dynamicComponents) comp->stamp_b(*this);
 
@@ -394,16 +393,18 @@ std::shared_ptr<Component> System::createComponent(const std::string& netlistLin
         return std::make_shared<IdealOPA>(start_node, end_node, value, idx);
     case 'D':
         return std::make_shared<Diode>(start_node, end_node);
-    case 'T':
+    case 'T': {
         unsigned node_3 = std::stoi(tokens[3]);
         unsigned node_4 = std::stoi(tokens[4]);
         double ratio = std::stod(tokens[5]);
         return std::make_shared<Transformer>(start_node, end_node, node_3, node_4, ratio, idx);
-    case 'G':
-		unsigned node_3 = std::stoi(tokens[3]);
-		unsigned node_4 = std::stoi(tokens[4]);
-		double resistance = std::stod(tokens[5]);
-		return std::make_shared<Gyrator>(start_node, end_node, node_3, node_4, resistance, idx);
+    }
+    case 'G': {
+        unsigned node_3 = std::stoi(tokens[3]);
+        unsigned node_4 = std::stoi(tokens[4]);
+        double resistance = std::stod(tokens[5]);
+        return std::make_shared<Gyrator>(start_node, end_node, node_3, node_4, resistance, idx);
+    }
     case '#':
         return nullptr;
     default:
@@ -424,8 +425,14 @@ std::vector<std::shared_ptr<Component>> System::createComponentListFromTxt(const
 
                 if (dynamic_cast<VoltageSource*>(component.get()) != nullptr ||
                     dynamic_cast<ReactiveComponent*>(component.get()) != nullptr ||
-                    dynamic_cast<IdealOPA*>(component.get()) != nullptr) {
+                    dynamic_cast<IdealOPA*>(component.get()) != nullptr ||
+                    dynamic_cast<Transformer*>(component.get()) != nullptr ||
+                    dynamic_cast<Gyrator*>(component.get()) != nullptr) {
                     indexNbrs++;
+
+                    if (dynamic_cast<Gyrator*>(component.get()) != nullptr) { // Gyrator has 2 additional indexes
+						indexNbrs++;
+					}
                 }
 
                 if (component) {

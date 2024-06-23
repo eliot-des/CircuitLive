@@ -284,6 +284,7 @@ juce::AudioProcessorEditor* CircuitLiveAudioProcessor::createEditor()
 }
 
 //==============================================================================
+
 void CircuitLiveAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     auto state = parameters.copyState();
@@ -305,12 +306,14 @@ void CircuitLiveAudioProcessor::setStateInformation (const void* data, int sizeI
         // Read the netlist path attribute and update the member variable.
         if (xmlState->hasAttribute("netlistPath")) {
             netlistPath = xmlState->getStringAttribute("netlistPath");
-            loadNetlistFile(netlistPath);  // Optionally reload the netlist file
+            //loadNetlistFile(netlistPath);  // Optionally reload the netlist file
 
             // Notify the editor to update its content if it's visible
             if (auto* editor = dynamic_cast<CircuitLiveAudioProcessorEditor*>(getActiveEditor())) {
+
+                editor->netlistEditor.displayNetlistFilePath(juce::File(netlistPath));
+                editor->netlistEditor.displayFileContent(juce::File(netlistPath));
                 editor->netlistEditor.readFile(juce::File(netlistPath));
-                
             }
         }
     }

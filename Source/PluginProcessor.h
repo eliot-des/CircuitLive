@@ -61,6 +61,9 @@ public:
     double currentSampleRate = 0.0;
 
     juce::String netlistPath;
+
+
+
 private:
 
      juce::AudioProcessorValueTreeState parameters;
@@ -81,5 +84,6 @@ private:
 
     std::unique_ptr<juce::dsp::Oversampling<float>> oversampler[3];
     //==============================================================================
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CircuitLiveAudioProcessor)
 };

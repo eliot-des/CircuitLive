@@ -32,7 +32,6 @@ NetlistEditor::NetlistEditor(CircuitLiveAudioProcessor& processor)
     addAndMakeVisible(textContent.get());
     textContent->setMultiLine(true);
     textContent->setReadOnly(false);
-    textContent->setCaretVisible(true);
     textContent->setPopupMenuEnabled(true);
     textContent->setScrollbarsShown(true);
     textContent->setReturnKeyStartsNewLine(true);
@@ -42,9 +41,21 @@ NetlistEditor::NetlistEditor(CircuitLiveAudioProcessor& processor)
     addAndMakeVisible(updateButton);
     updateButton.setButtonText("Update");
     updateButton.onClick = [this] { updateButtonClicked(); };
+
+
+
+
+    //display the path of the netlist file
+    displayNetlistFilePath(audioProcessor.netlistPath);
+    //display the content of the netlist file, if it exists
+    displayFileContent(audioProcessor.netlistPath);
+
 }
 
-NetlistEditor::~NetlistEditor() {}
+NetlistEditor::~NetlistEditor() {
+    // Save the state to the processor when the editor is destroyed ?
+    
+}
 
 void NetlistEditor::paint(juce::Graphics& g)
 {
@@ -65,8 +76,11 @@ void NetlistEditor::resized()
 
 void NetlistEditor::filenameComponentChanged(juce::FilenameComponent* fileComponentThatHasChanged)
 {
-    if (fileComponentThatHasChanged == fileComp.get())
+    if (fileComponentThatHasChanged == fileComp.get()) //fileComp.get()
+
+        displayFileContent(fileComp->getCurrentFile());
         readFile(fileComp->getCurrentFile());
+        
 }
 
 void NetlistEditor::readFile(const juce::File& fileToRead)
@@ -75,15 +89,33 @@ void NetlistEditor::readFile(const juce::File& fileToRead)
         return;
 
     audioProcessor.loadNetlistFile(fileToRead.getFullPathName());
-    auto fileText = fileToRead.loadFileAsString();
+}
+
+
+void NetlistEditor::displayNetlistFilePath(const juce::File& fileToDisplay)
+{
+	fileComp->setCurrentFile(fileToDisplay, true);
+}
+
+
+void NetlistEditor::displayFileContent(const juce::File& fileToDisplay)
+{
+	if (!fileToDisplay.existsAsFile())
+		return;
+
+    juce::String fileText = fileToDisplay.loadFileAsString();
     textContent->setText(fileText);
 }
+
+
 
 void NetlistEditor::updateButtonClicked()
 {
     if (audioProcessor.netlistPath.isNotEmpty()) {
         juce::File file(audioProcessor.netlistPath);
+
         file.replaceWithText(textContent->getText());
+        displayFileContent(file);
         readFile(file);
     }
 }
