@@ -29,7 +29,7 @@ parameters(*this, nullptr, juce::Identifier("CircuitLive"), {
         std::make_unique<juce::AudioParameterFloat>("output gain", "Output Gain", juce::NormalisableRange{ -40.f, 40.f ,0.1f, 1.f, false }, 0.f),
         std::make_unique<juce::AudioParameterInt>("mix", "Mix", 0, 100, 100),
         std::make_unique<juce::AudioParameterInt>("oversampling","Oversampling", 1, 4, 1),
-        std::make_unique<juce::AudioParameterInt>("nrIterations", "Number of iterations", 1, 5, 1),
+        std::make_unique<juce::AudioParameterInt>("nrIterations", "Number of iterations", 1, 5, 3),
         std::make_unique<juce::AudioParameterFloat>("knob1", "Knob 1", juce::NormalisableRange{0.0f, 1.0f, 0.001f, 1.f, false }, 0.5f),
         std::make_unique<juce::AudioParameterFloat>("knob2", "Knob 2", juce::NormalisableRange{0.0f, 1.0f, 0.001f, 1.f, false }, 0.5f),
         std::make_unique<juce::AudioParameterFloat>("knob3", "Knob 3", juce::NormalisableRange{0.0f, 1.0f, 0.001f, 1.f, false }, 1.0f),

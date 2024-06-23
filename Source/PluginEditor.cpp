@@ -33,11 +33,13 @@ CircuitLiveAudioProcessorEditor::CircuitLiveAudioProcessorEditor(CircuitLiveAudi
 
     addAndMakeVisible(simulationParametersGroup);
     simulationParametersGroup.addAndMakeVisible(simulationParameters);
+
     double ratio = 3.0 /2.0;
+    
+    setSize(900, 600);
     setResizable(true, true);
     setResizeLimits(600, 400, 1200, 800);
     getConstrainer()->setFixedAspectRatio(ratio);
-    setSize(900, 600);
 }
 
 CircuitLiveAudioProcessorEditor::~CircuitLiveAudioProcessorEditor() {}
@@ -53,16 +55,13 @@ void CircuitLiveAudioProcessorEditor::paint(juce::Graphics& g)
 void CircuitLiveAudioProcessorEditor::resized()
 {
     auto area = getLocalBounds().reduced(10);
-
     area.removeFromBottom(area.getHeight() *0.857);  //(*6/7)
+
     auto simuBounds = area.removeFromRight(area.getWidth() / 2);
     simulationParametersGroup.setBounds(simuBounds.reduced(5));
     simulationParameters.setBounds(simulationParametersGroup.getLocalBounds().reduced(10));
 
     auto bounds = getLocalBounds().reduced(10);
-    
-
-    
     bounds.removeFromTop(bounds.getHeight() * 0.1428); //(*1/7)
 
     auto editorBounds = bounds.removeFromLeft(bounds.getWidth() * 0.5);
