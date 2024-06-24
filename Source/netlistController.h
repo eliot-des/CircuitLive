@@ -11,6 +11,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "LookAndFeel.h"
 
 class NetlistController : public juce::Component
 {
@@ -22,6 +23,9 @@ public:
     void resized() override;
 
 private:
+
+    LookAndFeel lookAndFeel;
+
 
     juce::AudioProcessorValueTreeState& valueTreeState;
 

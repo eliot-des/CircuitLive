@@ -13,11 +13,16 @@
 NetlistController::NetlistController(juce::AudioProcessorValueTreeState& vts)
     : valueTreeState(vts)
 {
+
+    juce::LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
     //rotary sliders
     addAndMakeVisible(knob1);
     knob1.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
-    knob1.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
+    //knob1.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 10, 10);
+    knob1.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     knob1Attachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "knob1", knob1));
+    knob1.setLookAndFeel(&lookAndFeel);
+
 
     addAndMakeVisible(knob2);
     knob2.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
@@ -40,15 +45,21 @@ NetlistController::NetlistController(juce::AudioProcessorValueTreeState& vts)
     knob5.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
     knob5Attachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "knob5", knob5));
 
-    addAndMakeVisible(knob6);
+    
     knob6.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
     knob6.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
     knob6Attachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "knob6", knob6));
+
+    knob6.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
+    //knob6.setPopupDisplayEnabled(true, true, this, -1);
+    //knob6.setLookAndFeel(&lookAndFeel);
+    addAndMakeVisible(knob6);
 
 }
 
 NetlistController::~NetlistController()
 {
+    setLookAndFeel(nullptr);
 }
 
 void NetlistController::paint(juce::Graphics& g)
