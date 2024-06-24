@@ -13,12 +13,13 @@
 SimulationParameters::SimulationParameters(juce::AudioProcessorValueTreeState& vts)
 {
     addAndMakeVisible(oversamplingBox);
+    oversamplingBox.setScrollWheelEnabled(true);
     oversamplingBox.addItem("1x", 1);
     oversamplingBox.addItem("2x", 2);
     oversamplingBox.addItem("4x", 3);
     oversamplingBox.addItem("8x", 4);
     oversamplingBox.setSelectedId(1);
-
+    
     addAndMakeVisible(osLabel);
     osLabel.attachToComponent(&oversamplingBox, true);
     osLabel.setText("Oversampling :", juce::dontSendNotification);
@@ -28,6 +29,7 @@ SimulationParameters::SimulationParameters(juce::AudioProcessorValueTreeState& v
 
 
     addAndMakeVisible(nrIterationsBox);
+    nrIterationsBox.setScrollWheelEnabled(true);
     nrIterationsBox.addItem("1", 1);
     nrIterationsBox.addItem("2", 2);
     nrIterationsBox.addItem("4", 3);
@@ -37,7 +39,7 @@ SimulationParameters::SimulationParameters(juce::AudioProcessorValueTreeState& v
 
     addAndMakeVisible(nrIterationsLabel);
     nrIterationsLabel.attachToComponent(&nrIterationsBox, true);
-    nrIterationsLabel.setText("Max NR iterations :", juce::dontSendNotification);
+    nrIterationsLabel.setText("Max iterations :", juce::dontSendNotification);
     nrIterationsLabel.setJustificationType(juce::Justification::centred);
 
     nrIterationsAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(vts, "nrIterations", nrIterationsBox);

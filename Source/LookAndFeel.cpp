@@ -12,39 +12,146 @@
 
 LookAndFeel::LookAndFeel()
 {
-    // Color for the text inside the popup
-    setColour(juce::TooltipWindow::textColourId, juce::Colours::lightgrey);
+    auto mygrey = juce::Colour::fromRGB(241, 239, 243);
 
-    // Colors for the popup bubble
-    setColour(juce::BubbleComponent::backgroundColourId, juce::Colours::black);
-    setColour(juce::BubbleComponent::outlineColourId, juce::Colours::lightgrey);
+    //get lookandfeel colors of the light theme and not the default dark theme
+    LookAndFeel::setColourScheme(LookAndFeel_V4::getLightColourScheme());
 
-    auto dropShadow = juce::DropShadow(juce::Colours::black.withAlpha(0.5f), 2, { 0, 1 });
-    bubbleShadow.setShadowProperties(dropShadow);
+    setColour(juce::ResizableWindow::backgroundColourId, mygrey);
+
+    //change default color of the label
+    setColour(juce::Label::textColourId, juce::Colours::darkgrey);
+   
+    //change default color of slider's textbox
+    setColour(juce::Slider::textBoxHighlightColourId, juce::Colours::darkgrey);
+    setColour(juce::Slider::textBoxTextColourId, juce::Colours::darkgrey);
+    setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::transparentBlack);
+    
+    //change default slider colors:
+    setColour(juce::Slider::rotarySliderOutlineColourId, juce::Colours::grey.brighter(0.5f));
+    setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::darkorange);
+
+    setColour(juce::Slider::backgroundColourId, juce::Colours::grey.brighter(0.5f));
+    setColour(juce::Slider::trackColourId, juce::Colours::darkorange);
+    setColour(juce::Slider::thumbColourId, juce::Colours::darkorange);
+
+    //group component colors
+    setColour(juce::GroupComponent::textColourId, juce::Colours::grey);
+    setColour(juce::GroupComponent::outlineColourId, juce::Colours::grey.brighter(1.5f));
+
+    //change default color of the text editor
+    setColour(juce::TextEditor::backgroundColourId, juce::Colours::white);
+    setColour(juce::TextEditor::textColourId, juce::Colours::darkgrey);
+
+    LookAndFeel::getDefaultLookAndFeel().setDefaultSansSerifTypefaceName("Carlito");
+    
 }
-
 
 void LookAndFeel::drawLinearSlider(juce::Graphics& g, int x, int y, int width, int height,
     float sliderPos, float minSliderPos, float maxSliderPos, const juce::Slider::SliderStyle style,
     juce::Slider& slider)
 {
-    auto bounds = juce::Rectangle<int>(x, y, width, height).toFloat();
-    auto rect = bounds.withWidth(std::ceil(sliderPos - bounds.getX()));
-    auto cornerRadius = 3.0f;
+    if (slider.isBar())
+    {
+        g.setColour(slider.findColour(juce::Slider::trackColourId));
+        g.fillRect(slider.isHorizontal() ? juce::Rectangle<float>(static_cast<float> (x), (float)y + 0.5f, sliderPos - (float)x, (float)height - 1.0f)
+            : juce::Rectangle<float>((float)x + 0.5f, sliderPos, (float)width - 1.0f, (float)y + ((float)height - sliderPos)));
 
-    auto gradient = juce::ColourGradient(
-        { 0, 112, 255 }, bounds.getX(), 0.0f,
-        { 0, 255, 186 }, bounds.getRight(), 0.0f, false);
+        drawLinearSliderOutline(g, x, y, width, height, style, slider);
+    }
+    else
+    {
+        auto isTwoVal = (style == juce::Slider::SliderStyle::TwoValueVertical || style == juce::Slider::SliderStyle::TwoValueHorizontal);
+        auto isThreeVal = (style == juce::Slider::SliderStyle::ThreeValueVertical || style == juce::Slider::SliderStyle::ThreeValueHorizontal);
 
-    juce::Path path;
-    path.addRoundedRectangle(bounds, cornerRadius);
+        auto trackWidth = juce::jmin(6.0f, slider.isHorizontal() ? (float)height * 0.25f : (float)width * 0.25f);
 
-    g.saveState();
-    g.reduceClipRegion(path);
-    g.setGradientFill(gradient);
-    g.fillRoundedRectangle(rect, cornerRadius);
-    g.restoreState();
+        juce::Point<float> startPoint(slider.isHorizontal() ? (float)x : (float)x + (float)width * 0.5f,
+            slider.isHorizontal() ? (float)y + (float)height * 0.5f : (float)(height + y));
+
+        juce::Point<float> endPoint(slider.isHorizontal() ? (float)(width + x) : startPoint.x,
+            slider.isHorizontal() ? startPoint.y : (float)y);
+
+        juce::Path backgroundTrack;
+        backgroundTrack.startNewSubPath(startPoint);
+        backgroundTrack.lineTo(endPoint);
+        g.setColour(slider.findColour(juce::Slider::backgroundColourId));
+        g.strokePath(backgroundTrack, { trackWidth, juce::PathStrokeType::curved, juce::PathStrokeType::rounded });
+
+        juce::Path valueTrack;
+        juce::Point<float> minPoint, maxPoint, thumbPoint;
+
+        if (isTwoVal || isThreeVal)
+        {
+            minPoint = { slider.isHorizontal() ? minSliderPos : (float)width * 0.5f,
+                         slider.isHorizontal() ? (float)height * 0.5f : minSliderPos };
+
+            if (isThreeVal)
+                thumbPoint = { slider.isHorizontal() ? sliderPos : (float)width * 0.5f,
+                               slider.isHorizontal() ? (float)height * 0.5f : sliderPos };
+
+            maxPoint = { slider.isHorizontal() ? maxSliderPos : (float)width * 0.5f,
+                         slider.isHorizontal() ? (float)height * 0.5f : maxSliderPos };
+        }
+        else
+        {
+            auto kx = slider.isHorizontal() ? sliderPos : ((float)x + (float)width * 0.5f);
+            auto ky = slider.isHorizontal() ? ((float)y + (float)height * 0.5f) : sliderPos;
+
+            minPoint = startPoint;
+            maxPoint = { kx, ky };
+        }
+
+        auto thumbWidth1 = getSliderThumbRadius(slider)*1.33f;
+        auto thumbWidth2 = getSliderThumbRadius(slider)*0.66f;
+
+        valueTrack.startNewSubPath(minPoint);
+        valueTrack.lineTo(isThreeVal ? thumbPoint : maxPoint);
+        g.setColour(slider.findColour(juce::Slider::trackColourId));
+        g.strokePath(valueTrack, { trackWidth, juce::PathStrokeType::curved, juce::PathStrokeType::rounded });
+
+        if (!isTwoVal)
+        {
+            //g.setColour(slider.findColour(juce::Slider::thumbColourId));
+            g.setColour(juce::Colours::white);
+            g.fillEllipse(juce::Rectangle<float>(static_cast<float> (thumbWidth1), static_cast<float> (thumbWidth1)).withCentre(isThreeVal ? thumbPoint : maxPoint));
+
+            g.setColour(juce::Colours::darkgrey);
+            g.fillEllipse(juce::Rectangle<float>(static_cast<float> (thumbWidth2), static_cast<float> (thumbWidth2)).withCentre(isThreeVal ? thumbPoint : maxPoint));
+
+        }
+
+        if (isTwoVal || isThreeVal)
+        {
+            auto sr = juce::jmin(trackWidth, (slider.isHorizontal() ? (float)height : (float)width) * 0.4f);
+            auto pointerColour = slider.findColour(juce::Slider::thumbColourId);
+
+            if (slider.isHorizontal())
+            {
+                drawPointer(g, minSliderPos - sr,
+                    juce::jmax(0.0f, (float)y + (float)height * 0.5f - trackWidth * 2.0f),
+                    trackWidth * 2.0f, pointerColour, 2);
+
+                drawPointer(g, maxSliderPos - trackWidth,
+                    juce::jmin((float)(y + height) - trackWidth * 2.0f, (float)y + (float)height * 0.5f),
+                    trackWidth * 2.0f, pointerColour, 4);
+            }
+            else
+            {
+                drawPointer(g, juce::jmax(0.0f, (float)x + (float)width * 0.5f - trackWidth * 2.0f),
+                    minSliderPos - trackWidth,
+                    trackWidth * 2.0f, pointerColour, 1);
+
+                drawPointer(g, juce::jmin((float)(x + width) - trackWidth * 2.0f, (float)x + (float)width * 0.5f), maxSliderPos - sr,
+                    trackWidth * 2.0f, pointerColour, 3);
+            }
+        }
+
+        if (slider.isBar())
+            drawLinearSliderOutline(g, x, y, width, height, style, slider);
+    }
 }
+
 
 void LookAndFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, int height, float sliderPos,
     const float rotaryStartAngle, const float rotaryEndAngle, juce::Slider& slider)
@@ -52,23 +159,17 @@ void LookAndFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, i
     auto bounds = juce::Rectangle<int>(x, y, width, height).toFloat().reduced(10);
 
     auto outline = slider.findColour(juce::Slider::rotarySliderOutlineColourId);
+    auto fill = slider.findColour(juce::Slider::rotarySliderFillColourId);
+    auto background = slider.findColour(juce::ResizableWindow::backgroundColourId);
 
-    auto gradient = juce::ColourGradient(
-        { 0, 112, 255 }, bounds.getX(), 0.0f,
-        { 0, 255, 186 }, bounds.getRight(), 0.0f, false);
-    
+    auto radius = juce::jmin(bounds.getWidth(), bounds.getHeight()) / 2.0f;            //radius of the exterior dial path
+    auto innerRadius = radius * 0.72f;                                                 //radius of the dial
+    auto rx = bounds.getCentreX() - innerRadius;                                       //x position of the dial
+    auto ry = bounds.getCentreY() - innerRadius;                                       //y position of the dial
+    auto rw = innerRadius * 2.0f;                                                      //width of the dial
 
-    /*
-    auto gradient = juce::ColourGradient(
-        { 255, 0, 110 }, bounds.getX(), 0.0f,
-        { 255, 220, 0 }, bounds.getRight(), 0.0f, false);
-    
-    
-    */
-
-    auto radius = juce::jmin(bounds.getWidth(), bounds.getHeight()) / 2.0f;
     auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
-    auto lineW = radius * 0.1f;
+    auto lineW = radius * 0.08f;
     auto arcRadius = radius - lineW * 0.5f;
 
     //background dial path
@@ -81,7 +182,6 @@ void LookAndFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, i
         rotaryStartAngle,
         rotaryEndAngle,
         true);
-
     g.setColour(outline);
     g.strokePath(backgroundArc, juce::PathStrokeType(lineW, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
 
@@ -98,80 +198,42 @@ void LookAndFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, i
             toAngle,
             true);
 
-        g.setGradientFill(gradient);
+        g.setColour(fill);
         g.strokePath(valueArc, juce::PathStrokeType(lineW, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
     }
 
-    juce::Path knobIndent;
-    auto pointerLength = radius * 0.5f;
-    auto pointerThickness = radius * 0.1f;
-    knobIndent.addRoundedRectangle(-pointerThickness * 0.5f, -radius*0.8f, pointerThickness, pointerLength, pointerThickness * 0.5f);
+    // Create the outer ellipse path
+    juce::Path outerEllipsePath;
+    outerEllipsePath.addEllipse(rx, ry, rw, rw);
+    
+    // Create the gradient for the inner circle
+    auto gradient = juce::ColourGradient(
+        background.brighter(2.f), bounds.getCentreX(), bounds.getCentreY() - innerRadius,
+        background, bounds.getCentreX(), bounds.getCentreY() + innerRadius, false);
 
-    knobIndent.applyTransform(juce::AffineTransform::rotation(toAngle).translated(bounds.getCentreX(), bounds.getCentreY()));
-
-    // pointer
+    // Apply the drop shadow to the outline path
+    juce::DropShadow shadow(juce::Colours::black.withAlpha(0.1f), 20, { 0, 2 });
+    shadow.drawForPath(g, outerEllipsePath);
+    g.setGradientFill(gradient);
+    g.fillPath(outerEllipsePath);
+    // Draw the outline of the ellipse
     g.setColour(juce::Colours::white);
-    g.fillPath(knobIndent);
+    g.strokePath(outerEllipsePath, juce::PathStrokeType(3.0f));
 
+    // Dial pointer
+    juce::Path dialPointer;
+    auto pointerLength = innerRadius * 0.5f;
+    auto pointerThickness = innerRadius * 0.15f;
+    dialPointer.addRoundedRectangle(-pointerThickness * 0.5f, -innerRadius * 0.85f, pointerThickness, pointerLength, pointerThickness * 0.5f);
+
+    dialPointer.applyTransform(juce::AffineTransform::rotation(toAngle).translated(bounds.getCentreX(), bounds.getCentreY()));
+
+    // Pointer
+    g.setColour(juce::Colours::darkgrey);
+    g.fillPath(dialPointer);
 }
 
-
-juce::Label* LookAndFeel::createSliderTextBox(juce::Slider& slider)
+juce::Font LookAndFeel::getLabelFont(juce::Label& label)
 {
-	auto* l = juce::LookAndFeel_V2::createSliderTextBox(slider);
-    if (getCurrentColourScheme() == LookAndFeel_V4::getGreyColourScheme() && (slider.getSliderStyle() == juce::Slider::LinearBar
-        || slider.getSliderStyle() == juce::Slider::LinearBarVertical))
-    {
-        l->setColour(juce::Label::textColourId, juce::Colours::pink.withAlpha(0.7f));
-        l->setBounds(l->getBounds().reduced(20));
-    }
-
-    return l;
-}
-
-
-
-
-juce::Font LookAndFeel::getSliderPopupFont(juce::Slider&)
-{
-    return juce::Font(11.0f);
-}
-
-int LookAndFeel::getSliderPopupPlacement(juce::Slider& slider)
-{
-    if (slider.isRotary()) {
-        return juce::BubbleComponent::above;
-    }
-    else {
-        return juce::BubbleComponent::below;
-    }
-}
-
-void LookAndFeel::drawBubble(
-    juce::Graphics& g,
-    juce::BubbleComponent& comp,
-    const juce::Point<float>& tip,
-    const juce::Rectangle<float>& body)
-{
-    // Draw tip above or below the bubble?
-    float adjustedY = tip.y + ((tip.y > body.getBottom()) ? -6.0f : 6.0f);
-
-    juce::Path path;
-    path.addBubble(
-        body.reduced(0.5f),
-        body.getUnion(juce::Rectangle<float>(tip.x, tip.y, 1.0f, 1.0f)),
-        { tip.x, adjustedY },
-        2.0f,
-        juce::jmin(15.0f, body.getWidth() * 0.2f, body.getHeight() * 0.2f));
-
-    g.setColour(comp.findColour(juce::BubbleComponent::backgroundColourId));
-    g.fillPath(path);
-
-    g.setColour(comp.findColour(juce::BubbleComponent::outlineColourId));
-    g.strokePath(path, juce::PathStrokeType(1.0f));
-}
-
-void LookAndFeel::setComponentEffectForBubbleComponent(juce::BubbleComponent& bubbleComponent)
-{
-    bubbleComponent.setComponentEffect(&bubbleShadow);
+    return juce::Font(20.0f);
 }

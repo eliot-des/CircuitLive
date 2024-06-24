@@ -13,6 +13,7 @@
 AudioController::AudioController(juce::AudioProcessorValueTreeState& vts)
     : valueTreeState(vts)
 {
+
     addAndMakeVisible(inputGain);
     inputGain.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
     inputGain.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 60, 20);

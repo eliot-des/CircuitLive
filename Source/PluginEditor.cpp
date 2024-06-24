@@ -20,19 +20,31 @@ CircuitLiveAudioProcessorEditor::CircuitLiveAudioProcessorEditor(CircuitLiveAudi
     audioControllerGroup("Audio Controls", "Audio Controls"),
     simulationParametersGroup("Simulation Parameters", "Simulation Parameters")
 {
-    
+
+    setLookAndFeel(&lookAndFeel);
     
     addAndMakeVisible(netlistEditorGroup);
+    netlistEditorGroup.setTextLabelPosition(juce::Justification::centred);
     netlistEditorGroup.addAndMakeVisible(netlistEditor);
+    netlistEditorGroup.sendLookAndFeelChange();
+    
+
 
     addAndMakeVisible(netlistControllerGroup);
+    netlistControllerGroup.setTextLabelPosition(juce::Justification::centred);
     netlistControllerGroup.addAndMakeVisible(netlistController);
+    netlistControllerGroup.sendLookAndFeelChange();
+
 
     addAndMakeVisible(audioControllerGroup);
+    audioControllerGroup.setTextLabelPosition(juce::Justification::centred);
     audioControllerGroup.addAndMakeVisible(audioController);
+    audioController.sendLookAndFeelChange();
 
     addAndMakeVisible(simulationParametersGroup);
+    simulationParametersGroup.setTextLabelPosition(juce::Justification::centred);
     simulationParametersGroup.addAndMakeVisible(simulationParameters);
+    simulationParametersGroup.sendLookAndFeelChange();
 
     double ratio = 3.0 /2.0;
     
@@ -40,9 +52,12 @@ CircuitLiveAudioProcessorEditor::CircuitLiveAudioProcessorEditor(CircuitLiveAudi
     setResizable(true, true);
     setResizeLimits(600, 400, 1200, 800);
     getConstrainer()->setFixedAspectRatio(ratio);
+
 }
 
-CircuitLiveAudioProcessorEditor::~CircuitLiveAudioProcessorEditor() {}
+CircuitLiveAudioProcessorEditor::~CircuitLiveAudioProcessorEditor() {
+    setLookAndFeel(nullptr);
+}
 
 void CircuitLiveAudioProcessorEditor::paint(juce::Graphics& g)
 {

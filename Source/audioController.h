@@ -22,6 +22,7 @@ public:
     void resized() override;
 
 private:
+
     juce::Slider inputGain;
     juce::Slider outputGain;
     juce::Slider mixSlider;

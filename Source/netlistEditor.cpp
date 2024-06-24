@@ -37,6 +37,8 @@ NetlistEditor::NetlistEditor(CircuitLiveAudioProcessor& processor)
     textContent->setReturnKeyStartsNewLine(true);
     textContent->setFont(juce::Font("Consolas", 20.0f, juce::Font::plain));
 
+
+
     //======================Save Button==================================
     addAndMakeVisible(updateButton);
     updateButton.setButtonText("Update");

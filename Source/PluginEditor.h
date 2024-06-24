@@ -10,6 +10,9 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "LookAndFeel.h"
+
+
 #include "NetlistEditor.h"
 #include "NetlistController.h"
 #include "AudioController.h"
@@ -28,6 +31,8 @@ public:
     NetlistEditor netlistEditor;
 
 private:
+    LookAndFeel lookAndFeel;
+
     CircuitLiveAudioProcessor& audioProcessor;
     juce::AudioProcessorValueTreeState& parameters;
 
