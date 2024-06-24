@@ -53,8 +53,6 @@ NetlistEditor::NetlistEditor(CircuitLiveAudioProcessor& processor)
 }
 
 NetlistEditor::~NetlistEditor() {
-    // Save the state to the processor when the editor is destroyed ?
-    
 }
 
 void NetlistEditor::paint(juce::Graphics& g)
@@ -83,14 +81,6 @@ void NetlistEditor::filenameComponentChanged(juce::FilenameComponent* fileCompon
         
 }
 
-void NetlistEditor::readFile(const juce::File& fileToRead)
-{
-    if (!fileToRead.existsAsFile())
-        return;
-
-    audioProcessor.loadNetlistFile(fileToRead.getFullPathName());
-}
-
 
 void NetlistEditor::displayNetlistFilePath(const juce::File& fileToDisplay)
 {
@@ -107,6 +97,14 @@ void NetlistEditor::displayFileContent(const juce::File& fileToDisplay)
     textContent->setText(fileText);
 }
 
+
+void NetlistEditor::readFile(const juce::File& fileToRead)
+{
+    if (!fileToRead.existsAsFile())
+        return;
+
+    audioProcessor.loadNetlistFile(fileToRead.getFullPathName());
+}
 
 
 void NetlistEditor::updateButtonClicked()
