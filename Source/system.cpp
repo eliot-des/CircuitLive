@@ -230,13 +230,29 @@ void System::processBlockNonlinear(juce::dsp::AudioBlock<float>& audioBlock) {
 				for (const auto& comp : nonlinearComponents) comp->stamp_A(*this);
                 for (const auto& comp : nonlinearComponents) comp->stamp_b(*this);
 
+                /*
+                * Old way to do it
+                * 
+                x_old = x;
+
                 if (k == 0) {
                     solver.analyzePattern(A);
 				}
                 solver.factorize(A);
 
+                x = solver.solve(b);
+                */
+
+                // New way to do it, not sure if it's better
                 x_old = x;
+
+                solver.factorize(A);
+
 				x = solver.solve(b);
+
+                if (solver.info() != Eigen::Success) {
+					solver.analyzePattern(A);
+				}
 
                 if ((x - x_old).norm() < 1e-5) break;   
 			}
@@ -430,7 +446,7 @@ std::vector<std::shared_ptr<Component>> System::createComponentListFromTxt(const
                     dynamic_cast<Gyrator*>(component.get()) != nullptr) {
                     indexNbrs++;
 
-                    if (dynamic_cast<Gyrator*>(component.get()) != nullptr) { // Gyrator has 2 additional indexes
+                    if (dynamic_cast<Gyrator*>(component.get()) != nullptr) { // Gyrator has 2 additional indexes, see my report for more details
 						indexNbrs++;
 					}
                 }
