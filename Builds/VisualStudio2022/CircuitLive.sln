@@ -1,22 +1,21 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.8.34525.116
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CircuitLive_StandalonePlugin", "CircuitLive_StandalonePlugin.vcxproj", "{79B81B8E-AB79-7806-A7D2-ED144F981D70}"
+
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CircuitLive - Standalone Plugin", "CircuitLive_StandalonePlugin.vcxproj", "{79B81B8E-AB79-7806-A7D2-ED144F981D70}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C0AB0554-EEB2-3DB8-7D45-47D69481E17D} = {C0AB0554-EEB2-3DB8-7D45-47D69481E17D}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CircuitLive_VST3", "CircuitLive_VST3.vcxproj", "{5F2FB80B-EF2F-BC6F-593C-CE632103FFEF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CircuitLive - VST3", "CircuitLive_VST3.vcxproj", "{5F2FB80B-EF2F-BC6F-593C-CE632103FFEF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C0AB0554-EEB2-3DB8-7D45-47D69481E17D} = {C0AB0554-EEB2-3DB8-7D45-47D69481E17D}
 		{67EE0AE2-E447-1DD2-8515-0027D7BA8BD9} = {67EE0AE2-E447-1DD2-8515-0027D7BA8BD9}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CircuitLive_SharedCode", "CircuitLive_SharedCode.vcxproj", "{C0AB0554-EEB2-3DB8-7D45-47D69481E17D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CircuitLive - Shared Code", "CircuitLive_SharedCode.vcxproj", "{C0AB0554-EEB2-3DB8-7D45-47D69481E17D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CircuitLive_VST3ManifestHelper", "CircuitLive_VST3ManifestHelper.vcxproj", "{67EE0AE2-E447-1DD2-8515-0027D7BA8BD9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CircuitLive - VST3 Manifest Helper", "CircuitLive_VST3ManifestHelper.vcxproj", "{67EE0AE2-E447-1DD2-8515-0027D7BA8BD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,14 +23,14 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{79B81B8E-AB79-7806-A7D2-ED144F981D70}.Debug|x64.ActiveCfg = Debug|x64
-		{79B81B8E-AB79-7806-A7D2-ED144F981D70}.Debug|x64.Build.0 = Debug|x64
-		{79B81B8E-AB79-7806-A7D2-ED144F981D70}.Release|x64.ActiveCfg = Release|x64
-		{79B81B8E-AB79-7806-A7D2-ED144F981D70}.Release|x64.Build.0 = Release|x64
 		{5F2FB80B-EF2F-BC6F-593C-CE632103FFEF}.Debug|x64.ActiveCfg = Debug|x64
 		{5F2FB80B-EF2F-BC6F-593C-CE632103FFEF}.Debug|x64.Build.0 = Debug|x64
 		{5F2FB80B-EF2F-BC6F-593C-CE632103FFEF}.Release|x64.ActiveCfg = Release|x64
 		{5F2FB80B-EF2F-BC6F-593C-CE632103FFEF}.Release|x64.Build.0 = Release|x64
+		{79B81B8E-AB79-7806-A7D2-ED144F981D70}.Debug|x64.ActiveCfg = Debug|x64
+		{79B81B8E-AB79-7806-A7D2-ED144F981D70}.Debug|x64.Build.0 = Debug|x64
+		{79B81B8E-AB79-7806-A7D2-ED144F981D70}.Release|x64.ActiveCfg = Release|x64
+		{79B81B8E-AB79-7806-A7D2-ED144F981D70}.Release|x64.Build.0 = Release|x64
 		{C0AB0554-EEB2-3DB8-7D45-47D69481E17D}.Debug|x64.ActiveCfg = Debug|x64
 		{C0AB0554-EEB2-3DB8-7D45-47D69481E17D}.Debug|x64.Build.0 = Debug|x64
 		{C0AB0554-EEB2-3DB8-7D45-47D69481E17D}.Release|x64.ActiveCfg = Release|x64

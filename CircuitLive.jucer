@@ -9,6 +9,8 @@
               file="Source/audioController.cpp"/>
         <FILE id="B1jdXk" name="audioController.h" compile="0" resource="0"
               file="Source/audioController.h"/>
+        <FILE id="itD9bH" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
+        <FILE id="BCqRJF" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
         <FILE id="IG1jBv" name="netlistController.cpp" compile="1" resource="0"
               file="Source/netlistController.cpp"/>
         <FILE id="d55Nsx" name="netlistController.h" compile="0" resource="0"
