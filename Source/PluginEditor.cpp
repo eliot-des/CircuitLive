@@ -48,7 +48,7 @@ CircuitLiveAudioProcessorEditor::CircuitLiveAudioProcessorEditor(CircuitLiveAudi
 
     double ratio = 3.0 /2.0;
     
-    setSize(900, 600);
+    setSize(800, 533);
     setResizable(true, true);
     setResizeLimits(600, 400, 1200, 800);
     getConstrainer()->setFixedAspectRatio(ratio);
@@ -62,7 +62,7 @@ CircuitLiveAudioProcessorEditor::~CircuitLiveAudioProcessorEditor() {
 void CircuitLiveAudioProcessorEditor::paint(juce::Graphics& g)
 {
     g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
-    g.setColour(juce::Colours::white);
+    g.setColour(juce::Colours::darkgrey);
     g.setFont(juce::Font("Century Gothic", 53.0f, juce::Font::bold));
     g.drawFittedText("Circuit-Live", 20, 20, 300, 60, juce::Justification::bottomLeft, 1);
 }
