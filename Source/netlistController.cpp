@@ -58,6 +58,7 @@ void NetlistController::resized()
 {
     auto bounds = getLocalBounds().reduced(10);
     bounds.removeFromTop(10);
+
     auto bottomArea = bounds.removeFromBottom(bounds.getHeight() / 3);
     knob5.setBounds(bottomArea.removeFromTop(bottomArea.getHeight() / 2).reduced(5));
     knob6.setBounds(bottomArea.reduced(5));
