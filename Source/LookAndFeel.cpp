@@ -12,7 +12,10 @@
 
 LookAndFeel::LookAndFeel()
 {
-    auto mygrey = juce::Colour::fromRGB(241, 239, 243);
+
+    //243, 239, 234 or 241, 239, 243
+    auto mygrey = juce::Colour::fromRGB(243, 239, 234);
+    
 
     //get lookandfeel colors of the light theme and not the default dark theme
     LookAndFeel::setColourScheme(LookAndFeel_V4::getLightColourScheme());
@@ -97,7 +100,7 @@ void LookAndFeel::drawLinearSlider(juce::Graphics& g, int x, int y, int width, i
         {
             auto kx = slider.isHorizontal() ? sliderPos : ((float)x + (float)width * 0.5f);
             auto ky = slider.isHorizontal() ? ((float)y + (float)height * 0.5f) : sliderPos;
-
+           
             minPoint = startPoint;
             maxPoint = { kx, ky };
         }
@@ -156,7 +159,9 @@ void LookAndFeel::drawLinearSlider(juce::Graphics& g, int x, int y, int width, i
 void LookAndFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, int height, float sliderPos,
     const float rotaryStartAngle, const float rotaryEndAngle, juce::Slider& slider)
 {
-    auto bounds = juce::Rectangle<int>(x, y, width, height).toFloat().reduced(10);
+    auto bounds = juce::Rectangle<int>(x, y, width, height).reduced(7);
+
+
 
     auto outline = slider.findColour(juce::Slider::rotarySliderOutlineColourId);
     auto fill = slider.findColour(juce::Slider::rotarySliderFillColourId);
