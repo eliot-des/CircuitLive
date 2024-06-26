@@ -29,7 +29,10 @@ public:
 
     juce::Font getLabelFont(juce::Label& label) override;
 
-
+    
+    void drawGroupComponentOutline(juce::Graphics& g, int width, int height,
+        		const juce::String& text, const juce::Justification& position,
+        		juce::GroupComponent& group) override;
 private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LookAndFeel)

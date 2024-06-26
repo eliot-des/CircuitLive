@@ -12,6 +12,14 @@
 
 SimulationParameters::SimulationParameters(juce::AudioProcessorValueTreeState& vts)
 {
+    setLookAndFeel(&lookAndFeel);
+
+
+
+    // Customize ComboBox
+    
+    
+
     addAndMakeVisible(oversamplingBox);
     oversamplingBox.setScrollWheelEnabled(true);
     oversamplingBox.addItem("1x", 1);
@@ -47,7 +55,9 @@ SimulationParameters::SimulationParameters(juce::AudioProcessorValueTreeState& v
 
 SimulationParameters::~SimulationParameters()
 {
+	setLookAndFeel(nullptr);
 }
+
 
 void SimulationParameters::paint(juce::Graphics& g)
 {
@@ -56,7 +66,7 @@ void SimulationParameters::paint(juce::Graphics& g)
 void SimulationParameters::resized()
 {
     auto bounds = getLocalBounds().reduced(10);
-    bounds.removeFromTop(5);
+    bounds.translate(0,5);
     oversamplingBox.setBounds(bounds.removeFromRight(getWidth()/2).removeFromRight(getWidth()/5));
 
 

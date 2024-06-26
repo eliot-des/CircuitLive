@@ -55,6 +55,8 @@ NetlistEditor::NetlistEditor(CircuitLiveAudioProcessor& processor)
 }
 
 NetlistEditor::~NetlistEditor() {
+    //fileComp.release();    jassertfalse ->  juce_LeakedObjectDetector
+    //textContent.release();
 }
 
 void NetlistEditor::paint(juce::Graphics& g)

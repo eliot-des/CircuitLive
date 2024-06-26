@@ -14,13 +14,13 @@ LookAndFeel::LookAndFeel()
 {
 
     //243, 239, 234 or 241, 239, 243
-    auto mygrey = juce::Colour::fromRGB(243, 239, 234);
-    
+    juce::Colour myGrey= juce::Colour::fromRGB(243, 239, 234);
+    juce::Colour myBrightColor = juce::Colour::fromRGB(171, 105, 136);
 
     //get lookandfeel colors of the light theme and not the default dark theme
     LookAndFeel::setColourScheme(LookAndFeel_V4::getLightColourScheme());
 
-    setColour(juce::ResizableWindow::backgroundColourId, mygrey);
+    setColour(juce::ResizableWindow::backgroundColourId, myGrey);
 
     //change default color of the label
     setColour(juce::Label::textColourId, juce::Colours::darkgrey);
@@ -32,19 +32,22 @@ LookAndFeel::LookAndFeel()
     
     //change default slider colors:
     setColour(juce::Slider::rotarySliderOutlineColourId, juce::Colours::grey.brighter(0.5f));
-    setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::darkorange);
+    setColour(juce::Slider::rotarySliderFillColourId, myBrightColor);
 
     setColour(juce::Slider::backgroundColourId, juce::Colours::grey.brighter(0.5f));
-    setColour(juce::Slider::trackColourId, juce::Colours::darkorange);
-    setColour(juce::Slider::thumbColourId, juce::Colours::darkorange);
+    setColour(juce::Slider::trackColourId, myBrightColor);
+    setColour(juce::Slider::thumbColourId, myBrightColor);
 
     //group component colors
     setColour(juce::GroupComponent::textColourId, juce::Colours::grey);
-    setColour(juce::GroupComponent::outlineColourId, juce::Colours::grey.brighter(1.5f));
+    setColour(juce::GroupComponent::outlineColourId, juce::Colours::grey.brighter(2.0f));
 
     //change default color of the text editor
     setColour(juce::TextEditor::backgroundColourId, juce::Colours::white);
     setColour(juce::TextEditor::textColourId, juce::Colours::darkgrey);
+
+
+    setColour(juce::TextButton::ColourIds::textColourOffId, myBrightColor);
 
     LookAndFeel::getDefaultLookAndFeel().setDefaultSansSerifTypefaceName("Carlito");
     
@@ -105,8 +108,8 @@ void LookAndFeel::drawLinearSlider(juce::Graphics& g, int x, int y, int width, i
             maxPoint = { kx, ky };
         }
 
-        auto thumbWidth1 = getSliderThumbRadius(slider)*1.33f;
-        auto thumbWidth2 = getSliderThumbRadius(slider)*0.66f;
+        auto thumbWidth1 = getSliderThumbRadius(slider)*1.0f;
+        auto thumbWidth2 = getSliderThumbRadius(slider)*0.4f;
 
         valueTrack.startNewSubPath(minPoint);
         valueTrack.lineTo(isThreeVal ? thumbPoint : maxPoint);
@@ -116,12 +119,14 @@ void LookAndFeel::drawLinearSlider(juce::Graphics& g, int x, int y, int width, i
         if (!isTwoVal)
         {
             //g.setColour(slider.findColour(juce::Slider::thumbColourId));
+
+            //draw rounded rectangle instead of ellipse
             g.setColour(juce::Colours::white);
-            g.fillEllipse(juce::Rectangle<float>(static_cast<float> (thumbWidth1), static_cast<float> (thumbWidth1)).withCentre(isThreeVal ? thumbPoint : maxPoint));
-
+            g.fillRoundedRectangle(juce::Rectangle<float>(static_cast<float> (thumbWidth1), static_cast<float> (thumbWidth1*2)).withCentre(isThreeVal ? thumbPoint : maxPoint), 5.0f);
+            
             g.setColour(juce::Colours::darkgrey);
-            g.fillEllipse(juce::Rectangle<float>(static_cast<float> (thumbWidth2), static_cast<float> (thumbWidth2)).withCentre(isThreeVal ? thumbPoint : maxPoint));
-
+            g.fillRoundedRectangle(juce::Rectangle<float>(static_cast<float> (thumbWidth2), static_cast<float> (thumbWidth2*3)).withCentre(isThreeVal ? thumbPoint : maxPoint), 3.0f);
+           //add shadow ???
         }
 
         if (isTwoVal || isThreeVal)
@@ -217,7 +222,7 @@ void LookAndFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, i
         background, bounds.getCentreX(), bounds.getCentreY() + innerRadius, false);
 
     // Apply the drop shadow to the outline path
-    juce::DropShadow shadow(juce::Colours::black.withAlpha(0.1f), 20, { 0, 2 });
+    juce::DropShadow shadow(juce::Colours::black.withAlpha(0.5f), 20, { 0, 2 });
     shadow.drawForPath(g, outerEllipsePath);
     g.setGradientFill(gradient);
     g.fillPath(outerEllipsePath);
@@ -241,4 +246,69 @@ void LookAndFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, i
 juce::Font LookAndFeel::getLabelFont(juce::Label& label)
 {
     return juce::Font(20.0f);
+}
+
+
+void LookAndFeel::drawGroupComponentOutline(juce::Graphics& g, int width, int height,
+    const juce::String& text, const juce::Justification& position,
+    juce::GroupComponent& group)
+{
+    const float textH = 20.0f;
+    const float indent = 3.0f;
+    const float textEdgeGap = 4.0f;
+    auto cs = 5.0f;
+
+
+    //make the text font bold and bigger
+    juce::Font f(textH, juce::Font::bold);
+
+    juce::Path p;
+    auto x = indent;
+    auto y = f.getAscent() - 3.0f;
+    auto w = juce::jmax(0.0f, (float)width - x * 2.0f);
+    auto h = juce::jmax(0.0f, (float)height - y - indent);
+    cs = juce::jmin(cs, w * 0.5f, h * 0.5f);
+    auto cs2 = 2.0f * cs;
+
+    auto textW = text.isEmpty() ? 0
+        : juce::jlimit(0.0f,
+            juce::jmax(0.0f, w - cs2 - textEdgeGap * 2),
+            (float)f.getStringWidth(text) + textEdgeGap * 2.0f);
+    auto textX = cs + textEdgeGap;
+
+    if (position.testFlags(juce::Justification::horizontallyCentred))
+        textX = cs + (w - cs2 - textW) * 0.5f;
+    else if (position.testFlags(juce::Justification::right))
+        textX = w - cs - textW - textEdgeGap;
+
+    p.startNewSubPath(x + textX + textW, y);
+    p.lineTo(x + w - cs, y);
+
+    p.addArc(x + w - cs2, y, cs2, cs2, 0, juce::MathConstants<float>::halfPi);
+    p.lineTo(x + w, y + h - cs);
+
+    p.addArc(x + w - cs2, y + h - cs2, cs2, cs2, juce::MathConstants<float>::halfPi, juce::MathConstants<float>::pi);
+    p.lineTo(x + cs, y + h);
+
+    p.addArc(x, y + h - cs2, cs2, cs2, juce::MathConstants<float>::pi, juce::MathConstants<float>::pi * 1.5f);
+    p.lineTo(x, y + cs);
+
+    p.addArc(x, y, cs2, cs2, juce::MathConstants<float>::pi * 1.5f, juce::MathConstants<float>::twoPi);
+    p.lineTo(x + textX, y);
+
+    auto alpha = group.isEnabled() ? 1.0f : 0.5f;
+
+    g.setColour(group.findColour(juce::GroupComponent::outlineColourId)
+        .withMultipliedAlpha(alpha));
+
+    g.strokePath(p, juce::PathStrokeType(2.0f));
+
+    g.setColour(group.findColour(juce::GroupComponent::textColourId)
+        .withMultipliedAlpha(alpha));
+    g.setFont(f);
+    g.drawText(text,
+        juce::roundToInt(x + textX), 0,
+        juce::roundToInt(textW),
+        juce::roundToInt(textH),
+        juce::Justification::centred, true);
 }
