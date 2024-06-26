@@ -13,6 +13,8 @@
 NetlistEditor::NetlistEditor(CircuitLiveAudioProcessor& processor)
     : audioProcessor(processor)
 {
+    setLookAndFeel(&lookAndFeel);
+
     // Initialize and add components
     fileComp.reset(new juce::FilenameComponent("fileComp",
         {},                       // current file
@@ -37,8 +39,6 @@ NetlistEditor::NetlistEditor(CircuitLiveAudioProcessor& processor)
     textContent->setReturnKeyStartsNewLine(true);
     textContent->setFont(juce::Font("Consolas", 20.0f, juce::Font::plain));
 
-
-
     //======================Save Button==================================
     addAndMakeVisible(updateButton);
     updateButton.setButtonText("Update");
@@ -55,6 +55,9 @@ NetlistEditor::NetlistEditor(CircuitLiveAudioProcessor& processor)
 }
 
 NetlistEditor::~NetlistEditor() {
+    //fileComp.release();    jassertfalse ->  juce_LeakedObjectDetector
+    //textContent.release();
+    setLookAndFeel(nullptr);
 }
 
 void NetlistEditor::paint(juce::Graphics& g)

@@ -16,7 +16,7 @@ AudioController::AudioController(juce::AudioProcessorValueTreeState& vts)
 
     addAndMakeVisible(inputGain);
     inputGain.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
-    inputGain.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 70, 17);
+    inputGain.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 70, 20);
     inputGain.setTextValueSuffix(" dB");
     inputGainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(valueTreeState, "input gain", inputGain);
 
@@ -25,11 +25,10 @@ AudioController::AudioController(juce::AudioProcessorValueTreeState& vts)
     inputgainLabel.attachToComponent(&inputGain, false);
     inputgainLabel.setText("Input", juce::dontSendNotification);
     inputgainLabel.setJustificationType(juce::Justification::centredBottom);
-    inputgainLabel.setBorderSize(juce::BorderSize<int>{2, 0, 0, 0 });
 
     addAndMakeVisible(outputGain);
     outputGain.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
-    outputGain.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 60, 20);
+    outputGain.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 70, 20);
     outputGain.setTextValueSuffix(" dB");
     outputGainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(valueTreeState, "output gain", outputGain);
     
@@ -41,7 +40,7 @@ AudioController::AudioController(juce::AudioProcessorValueTreeState& vts)
 
     addAndMakeVisible(mixSlider);
     mixSlider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
-    mixSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 60, 20);
+    mixSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 70, 20);
     mixSlider.setTextValueSuffix(" %");
     mixSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(valueTreeState, "mix", mixSlider);
 

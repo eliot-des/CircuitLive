@@ -10,6 +10,7 @@
 #pragma once
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "LookAndFeel.h"
 
 class NetlistEditor : public juce::Component, 
                       public juce::FilenameComponentListener
@@ -30,6 +31,9 @@ public:
     void readFile(const juce::File& fileToRead);
 
 private:
+
+    LookAndFeel lookAndFeel;
+
     CircuitLiveAudioProcessor& audioProcessor;
 
     std::unique_ptr<juce::FilenameComponent> fileComp;
