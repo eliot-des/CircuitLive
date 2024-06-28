@@ -20,8 +20,8 @@ public:
 
     //juce::Typeface::Ptr getTypefaceForFont(const juce::Font&) override;
 
-    static const juce::Font getCarlitoRegularFont();
-    static const juce::Font getCarlitoBoldFont();
+    //static const juce::Font getCarlitoRegularFont();
+    //static const juce::Font getCarlitoBoldFont();
 
     void drawLinearSlider(juce::Graphics&, int x, int y, int width, int height,
         float sliderPos, float minSliderPos, float maxSliderPos,
