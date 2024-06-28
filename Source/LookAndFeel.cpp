@@ -17,7 +17,9 @@ LookAndFeel::LookAndFeel()
     
     LookAndFeel::setDefaultLookAndFeel(this);
     //LookAndFeel::setColourScheme(LookAndFeel_V4::getLightColourScheme());
-    //setDefaultSansSerifTypefaceName(getCarlitoRegularFont().getTypefaceName());
+    //set carlito font
+    //setDefaultSansSerifTypefaceName("Carlito");
+    
     
     setColour(juce::ResizableWindow::backgroundColourId, myGrey);
 
@@ -55,7 +57,7 @@ LookAndFeel::LookAndFeel()
     //change moving cursor color of the text editor:
 }
 
-/*
+
 const juce::Font LookAndFeel::getCarlitoRegularFont()
 {
 	static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::CarlitoRegular_ttf, BinaryData::CarlitoRegular_ttfSize);
@@ -71,9 +73,8 @@ const juce::Font LookAndFeel::getCarlitoBoldFont()
 
 juce::Typeface::Ptr LookAndFeel::getTypefaceForFont(const juce::Font& font)
 {
-   return getCarlitoRegularFont().getTypeface();
+   return font.isBold() ? getCarlitoBoldFont().getTypeface() : getCarlitoRegularFont().getTypeface();
 }
-*/
 
 
 

@@ -28,7 +28,7 @@ CircuitLiveAudioProcessorEditor::CircuitLiveAudioProcessorEditor(CircuitLiveAudi
     logoText.setText("Circuit-Live");
     logoText.setColour(juce::Colour::fromRGB(243, 239, 234));
     logoText.setJustification(juce::Justification::centredLeft);
-    logoText.setFont(juce::Font("Century Gothic", 53.0f, juce::Font::bold), true);
+    logoText.setFont(juce::Font("Futura", 53.0f, juce::Font::bold), true);
 
     addAndMakeVisible(simulationParametersGroup);
     simulationParametersGroup.setTextLabelPosition(juce::Justification::centred);

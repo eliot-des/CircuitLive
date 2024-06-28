@@ -18,10 +18,10 @@ class LookAndFeel : public juce::LookAndFeel_V4
 public:
     LookAndFeel();
 
-    //juce::Typeface::Ptr getTypefaceForFont(const juce::Font&) override;
+    juce::Typeface::Ptr getTypefaceForFont(const juce::Font&) override;
 
-    //static const juce::Font getCarlitoRegularFont();
-    //static const juce::Font getCarlitoBoldFont();
+    static const juce::Font getCarlitoRegularFont();
+    static const juce::Font getCarlitoBoldFont();
 
     void drawLinearSlider(juce::Graphics&, int x, int y, int width, int height,
         float sliderPos, float minSliderPos, float maxSliderPos,
