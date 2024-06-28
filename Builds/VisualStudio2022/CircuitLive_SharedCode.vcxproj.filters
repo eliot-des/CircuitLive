@@ -636,7 +636,7 @@
     <ClCompile Include="..\..\Source\audioController.cpp">
       <Filter>CircuitLive\Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\MyLookAndFeel.cpp">
+    <ClCompile Include="..\..\Source\LookAndFeel.cpp">
       <Filter>CircuitLive\Source\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\netlistController.cpp">
@@ -3098,7 +3098,7 @@
     <ClInclude Include="..\..\Source\audioController.h">
       <Filter>CircuitLive\Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\MyLookAndFeel.h">
+    <ClInclude Include="..\..\Source\LookAndFeel.h">
       <Filter>CircuitLive\Source\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\netlistController.h">

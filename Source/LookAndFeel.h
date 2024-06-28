@@ -13,10 +13,10 @@
 
 #include <JuceHeader.h>
 
-class MyLookAndFeel : public juce::LookAndFeel_V4
+class LookAndFeel : public juce::LookAndFeel_V4
 {
 public:
-    MyLookAndFeel();
+    LookAndFeel();
 
     juce::Typeface::Ptr getTypefaceForFont(const juce::Font&) override;
 
@@ -40,5 +40,5 @@ public:
         		juce::GroupComponent& group) override;
 private:
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MyLookAndFeel)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LookAndFeel)
 };
