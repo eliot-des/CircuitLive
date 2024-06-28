@@ -20,12 +20,6 @@ public:
 
     juce::Typeface::Ptr getTypefaceForFont(const juce::Font&) override;
 
-    static const juce::Font getCarlitoRegularFont();
-    static const juce::Font getCarlitoBoldFont();
-    static const juce::Font getRalewayFont();
-    static const juce::Font getConsolasFont();
-
-
     void drawLinearSlider(juce::Graphics&, int x, int y, int width, int height,
         float sliderPos, float minSliderPos, float maxSliderPos,
         juce::Slider::SliderStyle, juce::Slider&) override;
@@ -42,6 +36,12 @@ public:
         		const juce::String& text, const juce::Justification& position,
         		juce::GroupComponent& group) override;
 private:
+
+    juce::Typeface::Ptr carlitoRegular;
+    juce::Typeface::Ptr carlitoBold;
+    juce::Typeface::Ptr raleway;
+    juce::Typeface::Ptr consolas;
+
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LookAndFeel)
 };

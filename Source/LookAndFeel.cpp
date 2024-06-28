@@ -16,8 +16,7 @@ LookAndFeel::LookAndFeel()
     juce::Colour myBrightColor = juce::Colour::fromRGB(171, 105, 136);
     
     LookAndFeel::setDefaultLookAndFeel(this);
-    //LookAndFeel::setColourScheme(LookAndFeel_V4::getLightColourScheme());
-    //set carlito font
+
     LookAndFeel::setDefaultSansSerifTypefaceName("Carlito");
     
     
@@ -32,10 +31,6 @@ LookAndFeel::LookAndFeel()
     setColour(juce::Slider::textBoxTextColourId, juce::Colours::darkgrey);
     setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::transparentWhite);
     setColour(juce::Slider::textBoxBackgroundColourId,juce::Colours::transparentBlack);
-
-    //setColour of the text when it is edited in the textbox of the sliders
-    //setColour(juce:)
-
     
     //change default slider colors:
     setColour(juce::Slider::rotarySliderOutlineColourId, juce::Colours::grey.brighter(0.5f));
@@ -52,45 +47,23 @@ LookAndFeel::LookAndFeel()
     setColour(juce::TextEditor::backgroundColourId, juce::Colours::white);
     setColour(juce::TextEditor::textColourId, juce::Colours::darkgrey);
     setColour(juce::TextButton::ColourIds::textColourOffId, myBrightColor);
-
     setColour(juce::CaretComponent::caretColourId, juce::Colours::darkgrey);
-    //setColour(juce::Component);
-    //change moving cursor color of the text editor:
+
+
+
+    //setting the typeface for the fonts
+    carlitoRegular = juce::Typeface::createSystemTypefaceFor(BinaryData::CarlitoRegular_ttf, BinaryData::CarlitoRegular_ttfSize);
+    carlitoBold    = juce::Typeface::createSystemTypefaceFor(BinaryData::CarlitoBold_ttf, BinaryData::CarlitoBold_ttfSize);
+    raleway        = juce::Typeface::createSystemTypefaceFor(BinaryData::RalewayBold_ttf, BinaryData::RalewayBold_ttfSize);
+    consolas       = juce::Typeface::createSystemTypefaceFor(BinaryData::consolas_ttf, BinaryData::consolas_ttfSize);
 }
-
-
-const juce::Font LookAndFeel::getCarlitoRegularFont()
-{
-	static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::CarlitoRegular_ttf, BinaryData::CarlitoRegular_ttfSize);
-    return juce::Font(typeface);
-}
-
-const juce::Font LookAndFeel::getCarlitoBoldFont()
-{
-	static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::CarlitoBold_ttf, BinaryData::CarlitoBold_ttfSize);
-    return juce::Font(typeface);
-}
-
-
-const juce::Font LookAndFeel::getRalewayFont()
-{
-	static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::RalewayBold_ttf, BinaryData::RalewayBold_ttfSize);
-	return juce::Font(typeface);
-}
-
-const juce::Font LookAndFeel::getConsolasFont()
-{
-	static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::consolas_ttf, BinaryData::consolas_ttfSize);
-	return juce::Font(typeface);
-}
-
 
 juce::Typeface::Ptr LookAndFeel::getTypefaceForFont(const juce::Font& font)
 {
-       if (font.getTypefaceName() == "Raleway") return getRalewayFont().getTypeface();
-       if (font.getTypefaceName() == "Consolas") return getConsolasFont().getTypeface();
+       if (font.getTypefaceName() == "Raleway") return raleway;
+       if (font.getTypefaceName() == "Consolas") return consolas;
        
-       return font.isBold() ? getCarlitoBoldFont().getTypeface() : getCarlitoRegularFont().getTypeface();
+       return font.isBold() ? carlitoBold : carlitoRegular;
 }
 
 
@@ -150,8 +123,10 @@ void LookAndFeel::drawLinearSlider(juce::Graphics& g, int x, int y, int width, i
             maxPoint = { kx, ky };
         }
 
-        auto thumbWidth1 = getSliderThumbRadius(slider)*1.0f;
-        auto thumbWidth2 = getSliderThumbRadius(slider)*0.4f;
+        //float thumbWidth1 = getSliderThumbRadius(slider);
+        //float thumbWidth2 = static_cast<float>(getSliderThumbRadius(slider))*0.4f;
+        float thumbWidth1 = (float)slider.getHeight() * 0.23f;
+        float thumbWidth2 = thumbWidth1 * 0.4f;
 
         valueTrack.startNewSubPath(minPoint);
         valueTrack.lineTo(isThreeVal ? thumbPoint : maxPoint);
@@ -162,7 +137,7 @@ void LookAndFeel::drawLinearSlider(juce::Graphics& g, int x, int y, int width, i
         {
             // Create the thumb path
             juce::Path thumbPath;
-            thumbPath.addRoundedRectangle(juce::Rectangle<float>(static_cast<float> (thumbWidth1), static_cast<float> (thumbWidth1 * 2)).withCentre(isThreeVal ? thumbPoint : maxPoint), 5.0f);
+            thumbPath.addRoundedRectangle(juce::Rectangle<float>(thumbWidth1, thumbWidth1 * 2.0f).withCentre(isThreeVal ? thumbPoint : maxPoint), thumbWidth1 * 0.5f);
 
             // Apply shadow to the thumb path
             juce::DropShadow shadow(juce::Colours::black.withAlpha(0.5f), 5, { 0, 2 });
@@ -174,7 +149,7 @@ void LookAndFeel::drawLinearSlider(juce::Graphics& g, int x, int y, int width, i
 
             // Draw inner thumb path for additional styling
             juce::Path innerThumbPath;
-            innerThumbPath.addRoundedRectangle(juce::Rectangle<float>(static_cast<float> (thumbWidth2), static_cast<float> (thumbWidth2 * 3)).withCentre(isThreeVal ? thumbPoint : maxPoint), 3.0f);
+            innerThumbPath.addRoundedRectangle(juce::Rectangle<float>(thumbWidth2, thumbWidth2 * 3).withCentre(isThreeVal ? thumbPoint : maxPoint), thumbWidth2*0.5f);
             g.setColour(juce::Colours::darkgrey);
             g.fillPath(innerThumbPath);
 
