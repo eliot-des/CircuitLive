@@ -5,6 +5,9 @@
   <MAINGROUP id="hqIygj" name="CircuitLive">
     <GROUP id="{B9C8D091-6C8B-946F-D183-A04A41E455BD}" name="Source">
       <GROUP id="{39BBCADB-2E0E-DEB6-7E56-A9BD448B7CB9}" name="Fonts">
+        <FILE id="VbBfpV" name="Raleway-Bold.ttf" compile="0" resource="1"
+              file="Source/Fonts/Raleway-Bold.ttf"/>
+        <FILE id="DXsimO" name="consolas.ttf" compile="0" resource="1" file="Source/Fonts/consolas.ttf"/>
         <FILE id="YVPCUb" name="Carlito-Bold.ttf" compile="0" resource="1"
               file="Source/Fonts/Carlito-Bold.ttf"/>
         <FILE id="abAIlU" name="Carlito-Regular.ttf" compile="0" resource="1"

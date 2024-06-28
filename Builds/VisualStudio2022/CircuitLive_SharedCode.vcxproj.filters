@@ -6299,6 +6299,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\Fonts\Raleway-Bold.ttf">
+      <Filter>CircuitLive\Source\Fonts</Filter>
+    </None>
+    <None Include="..\..\Source\Fonts\consolas.ttf">
+      <Filter>CircuitLive\Source\Fonts</Filter>
+    </None>
     <None Include="..\..\Source\Fonts\Carlito-Bold.ttf">
       <Filter>CircuitLive\Source\Fonts</Filter>
     </None>

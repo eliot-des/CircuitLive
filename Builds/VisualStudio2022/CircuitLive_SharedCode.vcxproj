@@ -3575,6 +3575,8 @@
     <ClInclude Include="..\..\JuceLibraryCode\JucePluginDefines.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\Fonts\Raleway-Bold.ttf"/>
+    <None Include="..\..\Source\Fonts\consolas.ttf"/>
     <None Include="..\..\Source\Fonts\Carlito-Bold.ttf"/>
     <None Include="..\..\Source\Fonts\Carlito-Regular.ttf"/>
     <None Include="..\..\..\..\JUCE\modules\juce_audio_devices\native\oboe\src\common\README.md"/>

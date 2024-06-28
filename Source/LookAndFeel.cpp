@@ -18,7 +18,8 @@ LookAndFeel::LookAndFeel()
     LookAndFeel::setDefaultLookAndFeel(this);
     //LookAndFeel::setColourScheme(LookAndFeel_V4::getLightColourScheme());
     //set carlito font
-    //setDefaultSansSerifTypefaceName("Carlito");
+    LookAndFeel::setDefaultSansSerifTypefaceName("Carlito");
+    
     
     
     setColour(juce::ResizableWindow::backgroundColourId, myGrey);
@@ -71,9 +72,25 @@ const juce::Font LookAndFeel::getCarlitoBoldFont()
 }
 
 
+const juce::Font LookAndFeel::getRalewayFont()
+{
+	static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::RalewayBold_ttf, BinaryData::RalewayBold_ttfSize);
+	return juce::Font(typeface);
+}
+
+const juce::Font LookAndFeel::getConsolasFont()
+{
+	static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::consolas_ttf, BinaryData::consolas_ttfSize);
+	return juce::Font(typeface);
+}
+
+
 juce::Typeface::Ptr LookAndFeel::getTypefaceForFont(const juce::Font& font)
 {
-   return font.isBold() ? getCarlitoBoldFont().getTypeface() : getCarlitoRegularFont().getTypeface();
+       if (font.getTypefaceName() == "Raleway") return getRalewayFont().getTypeface();
+       if (font.getTypefaceName() == "Consolas") return getConsolasFont().getTypeface();
+       
+       return font.isBold() ? getCarlitoBoldFont().getTypeface() : getCarlitoRegularFont().getTypeface();
 }
 
 

@@ -22,6 +22,9 @@ public:
 
     static const juce::Font getCarlitoRegularFont();
     static const juce::Font getCarlitoBoldFont();
+    static const juce::Font getRalewayFont();
+    static const juce::Font getConsolasFont();
+
 
     void drawLinearSlider(juce::Graphics&, int x, int y, int width, int height,
         float sliderPos, float minSliderPos, float maxSliderPos,

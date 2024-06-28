@@ -37,7 +37,12 @@ NetlistEditor::NetlistEditor(CircuitLiveAudioProcessor& processor)
     textContent->setPopupMenuEnabled(true);
     textContent->setScrollbarsShown(true);
     textContent->setReturnKeyStartsNewLine(true);
-    textContent->setFont(juce::Font("Consolas", 20.0f, juce::Font::plain));
+    //set Noto sans mono font
+    
+    textContent->setFont(juce::Font("Consolas", 21.0f, juce::Font::plain));
+    // 
+    //
+    // not good textContent->setFont(juce::Font("Consolas", 20.0f, juce::Font::plain));
 
     //======================Save Button==================================
     addAndMakeVisible(updateButton);

@@ -25,10 +25,13 @@ CircuitLiveAudioProcessorEditor::CircuitLiveAudioProcessorEditor(CircuitLiveAudi
 
 
     addAndMakeVisible(logoText);
-    logoText.setText("Circuit-Live");
+    logoText.setText("CircuitLive");
     logoText.setColour(juce::Colour::fromRGB(243, 239, 234));
     logoText.setJustification(juce::Justification::centredLeft);
-    logoText.setFont(juce::Font("Futura", 53.0f, juce::Font::bold), true);
+    //use the raleway font in the look and feel
+    logoText.setFont(juce::Font("Raleway", 53.0f, juce::Font::bold), true);
+
+    // not good like that: logoText.setFont(juce::Font("Century Gothic", 53.0f, juce::Font::bold), true);
 
     addAndMakeVisible(simulationParametersGroup);
     simulationParametersGroup.setTextLabelPosition(juce::Justification::centred);
@@ -52,6 +55,7 @@ CircuitLiveAudioProcessorEditor::CircuitLiveAudioProcessorEditor(CircuitLiveAudi
     netlistEditorGroup.sendLookAndFeelChange();
     netlistEditor.getLookAndFeel().setColour(juce::TextEditor::ColourIds::outlineColourId, juce::Colours::grey.brighter(2.0f));
     netlistEditor.getLookAndFeel().setColour(juce::TextEditor::ColourIds::focusedOutlineColourId, juce::Colours::grey.brighter(1.0f));
+    netlistEditor.getLookAndFeel().setColour(juce::TextEditor::ColourIds::highlightColourId, juce::Colours::darkgrey);
     netlistEditor.getLookAndFeel().setColour(juce::TextButton::ColourIds::buttonColourId,juce::Colours::white);
     netlistEditor.getLookAndFeel().setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colours::white);
     netlistEditor.getLookAndFeel().setColour(juce::ComboBox::backgroundColourId,juce::Colours::white);
@@ -116,7 +120,7 @@ void CircuitLiveAudioProcessorEditor::resized()
     //Top Area
     auto areaTemp = topArea.removeFromLeft(topArea.getWidth() *0.36);
     logoText.setBoundingBox(juce::Parallelogram(areaTemp.translated(7, -areaTemp.getHeight() * 0.15f).toFloat()));
-    logoText.setFontHeight(logoText.getHeight()*0.8f);
+    logoText.setFontHeight(logoText.getHeight()*0.85f);
 
     simulationParametersGroup.setBounds(topArea.reduced(5));
     simulationParametersGroup.setBounds(simulationParametersGroup.getBounds().translated(0, -simulationParametersGroup.getHeight() * 0.2f));

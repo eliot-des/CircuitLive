@@ -8,6 +8,12 @@
 
 namespace BinaryData
 {
+    extern const char*   RalewayBold_ttf;
+    const int            RalewayBold_ttfSize = 164044;
+
+    extern const char*   consolas_ttf;
+    const int            consolas_ttfSize = 459180;
+
     extern const char*   CarlitoBold_ttf;
     const int            CarlitoBold_ttfSize = 690516;
 
@@ -15,7 +21,7 @@ namespace BinaryData
     const int            CarlitoRegular_ttfSize = 635996;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 2;
+    const int namedResourceListSize = 4;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];
