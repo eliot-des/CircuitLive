@@ -13,10 +13,15 @@
 
 #include <JuceHeader.h>
 
-class LookAndFeel : public juce::LookAndFeel_V4
+class MyLookAndFeel : public juce::LookAndFeel_V4
 {
 public:
-    LookAndFeel();
+    MyLookAndFeel();
+
+    juce::Typeface::Ptr getTypefaceForFont(const juce::Font&) override;
+
+    static const juce::Font getCarlitoRegularFont();
+    static const juce::Font getCarlitoBoldFont();
 
     void drawLinearSlider(juce::Graphics&, int x, int y, int width, int height,
         float sliderPos, float minSliderPos, float maxSliderPos,
@@ -35,5 +40,5 @@ public:
         		juce::GroupComponent& group) override;
 private:
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LookAndFeel)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MyLookAndFeel)
 };

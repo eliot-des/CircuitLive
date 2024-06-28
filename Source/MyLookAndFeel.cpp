@@ -1,23 +1,23 @@
 /*
   ==============================================================================
 
-    LookAndFeel.cpp
+    MyLookAndFeel.cpp
     Created: 24 Jun 2024 10:42:41am
     Author:  eliot
 
   ==============================================================================
 */
 
-#include "LookAndFeel.h"
+#include "MyLookAndFeel.h"
 
-LookAndFeel::LookAndFeel()
+MyLookAndFeel::MyLookAndFeel()
 {
     juce::Colour myGrey= juce::Colour::fromRGB(243, 239, 234);
     juce::Colour myBrightColor = juce::Colour::fromRGB(171, 105, 136);
     
-    LookAndFeel::setDefaultLookAndFeel(this);
-    //LookAndFeel::setColourScheme(LookAndFeel_V4::getLightColourScheme());
-    LookAndFeel::getDefaultLookAndFeel().setDefaultSansSerifTypefaceName("Carlito");
+    MyLookAndFeel::setDefaultLookAndFeel(this);
+    //MyLookAndFeel::setColourScheme(LookAndFeel_V4::getLightColourScheme());
+    //setDefaultSansSerifTypefaceName(getCarlitoRegularFont().getTypefaceName());
     
     setColour(juce::ResizableWindow::backgroundColourId, myGrey);
 
@@ -53,12 +53,31 @@ LookAndFeel::LookAndFeel()
     setColour(juce::CaretComponent::caretColourId, juce::Colours::darkgrey);
     //setColour(juce::Component);
     //change moving cursor color of the text editor:
-
-
-
 }
 
-void LookAndFeel::drawLinearSlider(juce::Graphics& g, int x, int y, int width, int height,
+
+static const juce::Font getCarlitoRegularFont()
+{
+	static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::CarlitoRegular_ttf, BinaryData::CarlitoRegular_ttfSize);
+    return juce::Font(typeface);
+}
+
+static const juce::Font getCarlitoBoldFont()
+{
+	static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::CarlitoBold_ttf, BinaryData::CarlitoBold_ttfSize);
+    return juce::Font(typeface);
+}
+
+
+juce::Typeface::Ptr getTypefaceForFont(const juce::Font& font)
+{
+   return juce::Typeface::createSystemTypefaceFor(BinaryData::CarlitoRegular_ttf, BinaryData::CarlitoRegular_ttfSize);
+}
+
+
+
+
+void MyLookAndFeel::drawLinearSlider(juce::Graphics& g, int x, int y, int width, int height,
     float sliderPos, float minSliderPos, float maxSliderPos, const juce::Slider::SliderStyle style,
     juce::Slider& slider)
 {
@@ -175,7 +194,7 @@ void LookAndFeel::drawLinearSlider(juce::Graphics& g, int x, int y, int width, i
 }
 
 
-void LookAndFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, int height, float sliderPos,
+void MyLookAndFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, int height, float sliderPos,
     const float rotaryStartAngle, const float rotaryEndAngle, juce::Slider& slider)
 {
     auto bounds = juce::Rectangle<int>(x, y, width, height).reduced(7);
@@ -257,13 +276,13 @@ void LookAndFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, i
     g.fillPath(dialPointer);
 }
 
-juce::Font LookAndFeel::getLabelFont(juce::Label& label)
+juce::Font MyLookAndFeel::getLabelFont(juce::Label& label)
 {
     return juce::Font(20.0f);
 }
 
 
-void LookAndFeel::drawGroupComponentOutline(juce::Graphics& g, int width, int height,
+void MyLookAndFeel::drawGroupComponentOutline(juce::Graphics& g, int width, int height,
     const juce::String& text, const juce::Justification& position,
     juce::GroupComponent& group)
 {
