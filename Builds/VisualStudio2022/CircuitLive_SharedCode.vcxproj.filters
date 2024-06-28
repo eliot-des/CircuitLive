@@ -2,8 +2,8 @@
 
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="CircuitLive\Source\Assets">
-      <UniqueIdentifier>{8E2D9C45-457F-3EFE-427A-DFC03C674DD0}</UniqueIdentifier>
+    <Filter Include="CircuitLive\Source\Fonts">
+      <UniqueIdentifier>{F08132CC-223F-65A0-3458-6F387C6C1AB9}</UniqueIdentifier>
     </Filter>
     <Filter Include="CircuitLive\Source\Graphics">
       <UniqueIdentifier>{303EFB33-0579-8390-C41F-3D57C47BF16D}</UniqueIdentifier>
@@ -6299,11 +6299,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\Carlito-Regular.ttf">
-      <Filter>CircuitLive\Source\Assets</Filter>
+    <None Include="..\..\Source\Fonts\Carlito-Bold.ttf">
+      <Filter>CircuitLive\Source\Fonts</Filter>
     </None>
-    <None Include="..\..\..\..\..\Carlito-Bold.ttf">
-      <Filter>CircuitLive\Source\Assets</Filter>
+    <None Include="..\..\Source\Fonts\Carlito-Regular.ttf">
+      <Filter>CircuitLive\Source\Fonts</Filter>
     </None>
     <None Include="..\..\..\..\JUCE\modules\juce_audio_devices\native\oboe\src\common\README.md">
       <Filter>JUCE Modules\juce_audio_devices\native\oboe\src\common</Filter>

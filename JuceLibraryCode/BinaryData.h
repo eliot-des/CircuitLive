@@ -8,11 +8,11 @@
 
 namespace BinaryData
 {
-    extern const char*   CarlitoRegular_ttf;
-    const int            CarlitoRegular_ttfSize = 635996;
-
     extern const char*   CarlitoBold_ttf;
     const int            CarlitoBold_ttfSize = 690516;
+
+    extern const char*   CarlitoRegular_ttf;
+    const int            CarlitoRegular_ttfSize = 635996;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
     const int namedResourceListSize = 2;

@@ -4,11 +4,11 @@
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="hqIygj" name="CircuitLive">
     <GROUP id="{B9C8D091-6C8B-946F-D183-A04A41E455BD}" name="Source">
-      <GROUP id="{5C676964-1075-7D83-D8C1-4B915202EEF6}" name="Assets">
-        <FILE id="x4RjS1" name="Carlito-Regular.ttf" compile="0" resource="1"
-              file="../../../Carlito-Regular.ttf"/>
-        <FILE id="Dfsdz3" name="Carlito-Bold.ttf" compile="0" resource="1"
-              file="../../../Carlito-Bold.ttf"/>
+      <GROUP id="{39BBCADB-2E0E-DEB6-7E56-A9BD448B7CB9}" name="Fonts">
+        <FILE id="YVPCUb" name="Carlito-Bold.ttf" compile="0" resource="1"
+              file="Source/Fonts/Carlito-Bold.ttf"/>
+        <FILE id="abAIlU" name="Carlito-Regular.ttf" compile="0" resource="1"
+              file="Source/Fonts/Carlito-Regular.ttf"/>
       </GROUP>
       <GROUP id="{2835E92D-2DB1-3073-99D2-C940E0F49780}" name="Graphics">
         <FILE id="fSFgRL" name="audioController.cpp" compile="1" resource="0"
