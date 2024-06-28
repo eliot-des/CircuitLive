@@ -133,7 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\audioController.cpp" />
-    <ClCompile Include="..\..\Source\MyLookAndFeel.cpp" />
+    <ClCompile Include="..\..\Source\LookAndFeel.cpp" />
     <ClCompile Include="..\..\Source\netlistController.cpp" />
     <ClCompile Include="..\..\Source\netlistEditor.cpp" />
     <ClCompile Include="..\..\Source\simulationParameters.cpp" />
@@ -2549,7 +2549,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\audioController.h" />
-    <ClInclude Include="..\..\Source\MyLookAndFeel.h" />
+    <ClInclude Include="..\..\Source\LookAndFeel.h" />
     <ClInclude Include="..\..\Source\netlistController.h" />
     <ClInclude Include="..\..\Source\netlistEditor.h" />
     <ClInclude Include="..\..\Source\simulationParameters.h" />
