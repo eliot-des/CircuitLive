@@ -5,12 +5,12 @@ The aim is to create a functional program capable of loading a netlist in the fo
 
 ## TO DO List
 
-- [ ] Avoid plugin's crash when loading/updating/writting an uncorrect netlist.
+- [ ] Avoid plugin crashes when loading/updating/writting an uncorrect netlist.
 - [ ] Adaptative font size when changing the size of the plugin's window.
 - [ ] Adding labels on the netlist controler sliders, when associated to components.
-- [ ] Improving parsing algorithm (actually the one implemented is one of the worst).
-- [ ] Adding an option to make the computation with dense or sparse matrices.
-- [ ] Adding an option to make the computation with a different algorithm ([Nodal-DK method](http://recherche.ircam.fr/pub/dafx11/Papers/21_e.pdf) ?).
+- [ ] Improve the parsing algorithm (in fact, the algorithm implemented is one of the worst).
+- [ ] Add an option to make the computation with dense or sparse matrices.
+- [ ] Add an option to make the computation with a different algorithm ([Nodal-DK method](http://recherche.ircam.fr/pub/dafx11/Papers/21_e.pdf)).
 
 ## Plugin's GUI
 ![CircuitLive plugin image](https://github.com/eliot-des/CircuitLive/assets/72158380/26101e9f-3620-48ee-8cf5-0f18be21b0e9)
