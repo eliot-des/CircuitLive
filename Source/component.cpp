@@ -306,10 +306,10 @@ void IdealOPA::stamp_A(System& system) {
 Diode::Diode(unsigned start_node, unsigned end_node)
     : Component(start_node, end_node) {
 
-    //Diode parameters based on the characteristics of the 1N34A model
+    //Diode parameters based on the characteristics of the 1N4148 model
 
-    N = 1.6;	   //ideality factor
-    Is = 2.6e-6;   //reverse saturation current
+    N = 1.752;	   //ideality factor
+    Is = 2.52e-9;   //reverse saturation current
 
     Vt = 25.852e-3;  //thermal voltage at approx. 300 Kelvin
     N_Vt = N * Vt;  //N*Vt

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="gPnJmG" name="CircuitLive" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+<JUCERPROJECT id="gPnJmG" name="CircuitLive" projectType="audioplug" addUsingNamespaceToJuceHeader="0"
+              displaySplashScreen="1" jucerFormatVersion="1" maxBinaryFileSize="10485760">
   <MAINGROUP id="hqIygj" name="CircuitLive">
     <GROUP id="{B9C8D091-6C8B-946F-D183-A04A41E455BD}" name="Source">
       <GROUP id="{39BBCADB-2E0E-DEB6-7E56-A9BD448B7CB9}" name="Fonts">
