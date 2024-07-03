@@ -5,13 +5,14 @@ The aim is to create a functional program capable of loading a netlist in the fo
 
 ## TO DO List
 ---
-
+- [ ] Add different models of diodes, transistors.
 - [ ] Avoid plugin crashes when loading/updating/writting an uncorrect netlist.
 - [ ] Adaptative font size when changing the size of the plugin's window.
 - [ ] Adding labels on the netlist controler sliders, when associated to components.
 - [ ] Improve the parsing algorithm (in fact, the algorithm implemented is one of the worst).
 - [ ] Add an option to make the computation with dense or sparse matrices.
 - [ ] Add an option to make the computation with a different algorithm ([Nodal-DK method](http://recherche.ircam.fr/pub/dafx11/Papers/21_e.pdf)).
+
 
 ## Plugin's GUI
 ---
