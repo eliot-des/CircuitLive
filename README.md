@@ -4,6 +4,7 @@ This repository is just the implementation of the Modified Nodal Analysis for **
 The aim is to create a functional program capable of loading a netlist in the form of a `.txt` file, where all the components of the circuit are referenced by their node connections, their values (Ohms, henrys, Farads...), and to simulate the behavior of the circuit for any input signal, and any location where we want to know the output voltage or current.
 
 ## TO DO List
+---
 
 - [ ] Avoid plugin crashes when loading/updating/writting an uncorrect netlist.
 - [ ] Adaptative font size when changing the size of the plugin's window.
@@ -13,6 +14,8 @@ The aim is to create a functional program capable of loading a netlist in the fo
 - [ ] Add an option to make the computation with a different algorithm ([Nodal-DK method](http://recherche.ircam.fr/pub/dafx11/Papers/21_e.pdf)).
 
 ## Plugin's GUI
+---
+
 ![CircuitLive plugin image](https://github.com/eliot-des/CircuitLive/assets/72158380/26101e9f-3620-48ee-8cf5-0f18be21b0e9)
 
 The GUI "style" is not my own, but a reproduction of the one seen on this [repository](https://github.com/TheAudioProgrammer/getting-started-book).
