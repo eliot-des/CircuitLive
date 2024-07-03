@@ -10,7 +10,7 @@ The aim is to create a functional program capable of loading a netlist in the fo
 
 The plugin is structured around 4 different zones. 
 
--<ins>**Netlist Editor**: text editing area for entering circuit information, commonly referred to as a netlist, on which each line represents a component. The first token defines the component type (e.g., voltage source, resistor), the following tokens specify the nodes connected to the component, and the last tokens indicate component values (e.g., resistance, capacitance, etc.).
+-<ins>{**Netlist Editor**}: text editing area for entering circuit information, commonly referred to as a netlist, on which each line represents a component. The first token defines the component type (e.g., voltage source, resistor), the following tokens specify the nodes connected to the component, and the last tokens indicate component values (e.g., resistance, capacitance, etc.).
 
 -<ins>**The Netlist Controller**: area with sliders that can be associated with parameterizable components (poten-
 tiometers, variable resistors), referenced in the netlist. For example, if you want to associate a potentiometer `P1` of maximum value 200 kilo Ohms, for which the end terminals are connected to nodes `0` and `4` and the wiper terminal is connected to node `2`, that you want to associate to the slider `3` of the netlist controller, you will have to write down in the netlist editor the following line : `P1 0 4 2 200e3 3`.
