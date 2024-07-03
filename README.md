@@ -78,6 +78,8 @@ The source code in this repository is licensed under the terms of the [GPL 3.0 l
 
 JUCE is copyright © Raw Material Software.
 
-The Raleway font is copyright (c) 2010-2011 Matt McInerney, Pablo Impallari, Rodrigo Fuenzalida and is licensed under the SIL Open Font License (also available with a FAQ at: http://scripts.sil.org/OFL).\\
-The Carlito font is copyright (c) 2010-2014 Łukasz Dziedzic and is licensed under the SIL Open Font License (also available with a FAQ at: http://scripts.sil.org/OFL).\\
-The Consolas font is copyright (c) 2018 Microsoft Corporation. All rights reserved.\\
+The Raleway font is copyright (c) 2010-2011 Matt McInerney, Pablo Impallari, Rodrigo Fuenzalida and is licensed under the SIL Open Font License (also available with a FAQ at: http://scripts.sil.org/OFL).
+
+The Carlito font is copyright (c) 2010-2014 Łukasz Dziedzic and is licensed under the SIL Open Font License (also available with a FAQ at: http://scripts.sil.org/OFL).
+
+The Consolas font is copyright (c) 2018 Microsoft Corporation. All rights reserved.
