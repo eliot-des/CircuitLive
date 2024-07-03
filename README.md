@@ -10,9 +10,9 @@ The aim is to create a functional program capable of loading a netlist in the fo
 
 The plugin is structured around 4 different zones. 
 
--**Netlist Editor**: text editing area for entering circuit information, commonly referred to as a netlist, on which each line represents a component. The first token defines the component type (e.g., voltage source, resistor), the following tokens specify the nodes connected to the component, and the last tokens indicate component values (e.g., resistance, capacitance, etc.).
+-<ins>**Netlist Editor**<ins>: text editing area for entering circuit information, commonly referred to as a netlist, on which each line represents a component. The first token defines the component type (e.g., voltage source, resistor), the following tokens specify the nodes connected to the component, and the last tokens indicate component values (e.g., resistance, capacitance, etc.).
 
--**The Netlist Controller**: area with sliders that can be associated with parameterizable components (poten-
+-<ins>**The Netlist Controller**<ins>: area with sliders that can be associated with parameterizable components (poten-
 tiometers, variable resistors), referenced in the netlist. For example, if you want to associate a potentiometer `P1` of maximum value 200 kilo Ohms, for which the end terminals are connected to nodes `0` and `4` and the wiper terminal is connected to node `2`, that you want to associate to the slider `3` of the netlist controller, you will have to write down in the netlist editor the following line : `P1 0 4 2 200e3 3`.
 
 -**Simulation Parameters** zone: area allowing to control the number of Newton-Raphson iterations (this parameter is only used if your circuit contains non-linear components such as diodes or transistors), as well as the oversampling factor. The higher the number of Newton iterations, the more accurate the emulation. The higher the number of Newton steps, the more precise the emulation. The oversampling factor can be useful to avoid frequency aliasing for nonlinear circuits, and to emulate frequency response more faithfully for linear circuits that modify the transfer function close to Fs/2. In any case, oversampling implies a big drop in performance, the higher the factor and the bigger the circuit.
