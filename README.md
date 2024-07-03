@@ -1,4 +1,4 @@
-# CircuitLive : AUdio plugin for Real-Time circuit emulations.
+# CircuitLive : Aadio plugin for Real-Time circuit emulations.
 ---
 This repository is just the implementation of the Modified Nodal Analysis for **transient analysis** of electronic circuit, into an audio plugin. This is a work in progress and this deposit serves as a test environnement.
 The aim is to create a functional program capable of loading a netlist in the form of a `.txt` file, where all the components of the circuit are referenced by their node connections, their values (Ohms, henrys, Farads...), and to simulate the behavior of the circuit for any input signal, and any location where we want to know the output voltage or current.
@@ -11,7 +11,9 @@ The **M**odified **N**odal Analysis **A**lgorithm (MNA) is quite well documented
 - Lawrence T. Pillage, Ronald A. Rohrer, Chandramouli Visweswariah -  Electronic Ciruit And System Simulation Methods
 - Stefan Jahn, Michael Margraf, Vincent Habchi, Raimund Jacob - QUCS Technical Papers
 
-## Under the hood of the algorithm (from QUCS technical papers)
+Anyway, if you want a **if you want a concise text on how the plugin works**, you can have a look at the pdf on my repository.
+
+## Under the hood of the main algorithm (from QUCS technical papers)
 ---
 Many different kinds of network element are encountered in network analysis. For circuit analysis
 it is necessary to formulate equations for circuits containing as many different types of network
@@ -36,7 +38,7 @@ The circuit can therefore be solved by a simple matrix manipulation:
 
 $$\mathbf{x} = \mathbf{A}^{-1}\mathbf{b}$$
 
-or **LU** decomposition for example. Though this may be difficult by hand, it is straightforward and so is easily done by computer
+or **LU** decomposition for example. Though this may be difficult by hand, it is straightforward and so is easily done by computer.
 
 ## Prerequisites
 ---
