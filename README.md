@@ -3,6 +3,14 @@
 This repository is just the implementation of the Modified Nodal Analysis for **transient analysis** of electronic circuit, into an audio plugin. This is a work in progress and this deposit serves as a test environnement.
 The aim is to create a functional program capable of loading a netlist in the form of a `.txt` file, where all the components of the circuit are referenced by their node connections, their values (Ohms, henrys, Farads...), and to simulate the behavior of the circuit for any input signal, and any location where we want to know the output voltage or current.
 
+## TO DO List
+
+- [ ] Adaptative font size when changing the size of the plugin's window.
+- [ ] Adding labels on the netlist controler sliders, when associated to components.
+- [ ] Improving parsing algorithm (actually the one implemented is one of the worst).
+- [ ] Adding an option to make the computation with dense or sparse matrices.
+- [ ] Adding an option to make the computation with a different algorithm ([Nodal-DK method](http://recherche.ircam.fr/pub/dafx11/Papers/21_e.pdf) ?)
+
 ## Plugin's GUI
 ![CircuitLive plugin image](https://github.com/eliot-des/CircuitLive/assets/72158380/26101e9f-3620-48ee-8cf5-0f18be21b0e9)
 
