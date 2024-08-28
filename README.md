@@ -19,7 +19,7 @@ The aim is to create a functional program capable of loading a netlist in the fo
 
 ![CircuitLive plugin image](https://github.com/eliot-des/CircuitLive/assets/72158380/26101e9f-3620-48ee-8cf5-0f18be21b0e9)
 
-**The GUI "style" is not my own**, but a reproduction of the one seen on this [repository](https://github.com/TheAudioProgrammer/getting-started-book).
+**The GUI "style" is not my own**, but an inspiration of the one seen on this [repository](https://github.com/TheAudioProgrammer/getting-started-book).
 
 ## Plugin's workflow
 
